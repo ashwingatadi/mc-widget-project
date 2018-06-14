@@ -10,13 +10,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() callAPI: boolean = false;
   @Input() buttonIdForAPICall: string;
+  @Input() apiKey: string;
 
   constructor(private elm: ElementRef, private configService: ConfigService) {
     this.callAPI = elm.nativeElement.getAttribute('callAPI');
     this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
+    this.apiKey = elm.nativeElement.getAttribute('apiKey');
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    
+  }
 
   ngAfterViewInit() {
     //console.log(this.callAPI);
@@ -28,14 +32,11 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitClick(event) {
-    console.log('This is the event triggered outside');
-    // console.log(event);
-  }
-
-  readConfigData(){
     this.configService.getConfigData().subscribe(
       data => {
         var dat = JSON.parse(data._body);
+        var urlOfAPI = dat.consent.api[this.apiKey];
+        console.log("URL of API Call:" + urlOfAPI);
       },
       (err: HttpErrorResponse) => {
         console.log(err.message);

@@ -32,7 +32,10 @@
     </div>
 
     <div *ngIf="[useConsent] == 'true'">
-      <mc-consent buttonIdForAPICall="{{buttonIdForConsentAPICall}}" callAPI="{{callConsentAPIOnSubmit}}">
+      <mc-consent 
+      buttonIdForAPICall="{{buttonIdForConsentAPICall}}" 
+      callAPI="{{callConsentAPIOnSubmit}}" 
+      apiKey="{{consentApiKey}}">
       </mc-consent>
     </div>
 

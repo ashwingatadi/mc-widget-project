@@ -8,6 +8,12 @@
         "locale": "en-US"
     },
     "consent":{
-        "submitBtnId": "outsideBtnId"
+        "api":{
+            "serviceCode": "pc",
+            "serviceFunctionCode": "pc-reg",
+            "locale": "en-US",
+            "url1": "https://www.example.com/api/pc/pc-reg/en-US/firstServiceCall",
+            "url2": "https://www.example.com/api/pc/pc-reg/fr-FR/secondServiceCall"
+        }
     }
 }
