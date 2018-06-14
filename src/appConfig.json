@@ -1,0 +1,10 @@
+{
+    "signup": {
+        "useConsent": "1"
+    },
+    "lang":{
+        "value": "fr",
+        "country": "US",
+        "locale": "en-US"
+    }
+}
