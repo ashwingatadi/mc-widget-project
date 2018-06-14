@@ -8,35 +8,26 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./mc-signup.component.css']
 })
 export class McSignupComponent implements OnInit, AfterViewInit {
-  useConsent:boolean; 
-  configData:any; 
+  useConsent: boolean;
+  configData: any;
+  callConsentAPIOnSubmit: boolean = false;
+  buttonIdForConsentAPICall:string;
 
 
-  constructor(private configService:ConfigService, private elm: ElementRef) {
-    this.configService.getConfigData().subscribe(data => {
-      //console.log(data._body);
-      var dat = JSON.parse(data._body);
+  constructor(private configService: ConfigService, private elm: ElementRef) {
+    this.useConsent = elm.nativeElement.getAttribute('useConsent');
+    this.callConsentAPIOnSubmit = elm.nativeElement.getAttribute('callConsentAPIOnSubmit');
+    this.buttonIdForConsentAPICall = elm.nativeElement.getAttribute('buttonIdForConsentAPICall');
+    //console.log(this.useConsent);
+  }
 
-      this.useConsent = elm.nativeElement.getAttribute('useConsent');
-      console.log(this.useConsent);
+  ngOnInit() {
+    //console.log(this.useConsent);
+  }
 
+  ngAfterViewInit() {
+    //console.log(this.useConsent);
+  }
 
-      // var consent = dat.signup.useConsent;
-      // this.useConsent = consent == 1;
-      // console.log(this.useConsent);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      })
-   }
-   
-ngOnInit(){
-  console.log(this.useConsent);
-}
-
-ngAfterViewInit(){
-  //console.log(this.useConsent);
-}
-  
 
 }

@@ -6,5 +6,8 @@
         "value": "fr",
         "country": "US",
         "locale": "en-US"
+    },
+    "consent":{
+        "submitBtnId": "outsideBtnId"
     }
 }

@@ -31,12 +31,9 @@
       </label>
     </div>
 
-    <div>
-      <p>Terms and conditions
-        <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-      <div *ngIf="[useConsent] == 'true'">
-        <mc-consent></mc-consent>
-      </div>
+    <div *ngIf="[useConsent] == 'true'">
+      <mc-consent buttonIdForAPICall="[buttonIdForConsentAPICall]" callAPI="[callConsentAPIOnSubmit]">
+      </mc-consent>
     </div>
 
     <button type="submit" class="btn btn-primary">Sign Up</button>
