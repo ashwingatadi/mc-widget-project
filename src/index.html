@@ -13,8 +13,16 @@
     <!-- <mc-root></mc-root> -->
     <!-- <router-outlet></router-outlet> -->
     <!-- <mc-login></mc-login> -->
-    <mc-signup useConsent="true" buttonIdForConsentAPICall="outsideBtnId1" callConsentAPIOnSubmit="true"></mc-signup>
-    <mc-consent buttonIdForAPICall="outsideBtnId" callAPI="true"></mc-consent>
-    <button id="outsideBtnId">Click Me</button>
+    <div class="row">
+      <div class="col-sm-6">
+        <mc-signup useConsent="true" buttonIdForConsentAPICall="outsideBtnId1" callConsentAPIOnSubmit="true"></mc-signup>
+      </div>
+      <div class="col-sm-6">
+        <mc-consent buttonIdForAPICall="outsideBtnId" callAPI="true"></mc-consent>
+        <button id="outsideBtnId">Click Me</button>
+      </div>
+    </div>
+    
+ 
 </body>
 </html>
