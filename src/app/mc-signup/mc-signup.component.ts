@@ -18,7 +18,7 @@ export class McSignupComponent implements OnInit, AfterViewInit {
     this.useConsent = elm.nativeElement.getAttribute('useConsent');
     this.callConsentAPIOnSubmit = elm.nativeElement.getAttribute('callConsentAPIOnSubmit');
     this.buttonIdForConsentAPICall = elm.nativeElement.getAttribute('buttonIdForConsentAPICall');
-    //console.log(this.useConsent);
+    //console.log(this.buttonIdForConsentAPICall);
   }
 
   ngOnInit() {

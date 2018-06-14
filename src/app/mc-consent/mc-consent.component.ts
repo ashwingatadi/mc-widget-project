@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -8,8 +8,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./mc-consent.component.css']
 })
 export class McConsentComponent implements OnInit, AfterViewInit {
-  callAPI: boolean = false;
-  buttonIdForAPICall: string;
+  @Input() callAPI: boolean = false;
+  @Input() buttonIdForAPICall: string;
 
   constructor(private elm: ElementRef, private configService: ConfigService) {
     this.callAPI = elm.nativeElement.getAttribute('callAPI');
@@ -19,9 +19,10 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   ngAfterViewInit() {
+    //console.log(this.callAPI);
     if (this.callAPI) {
       var element = document.getElementById(this.buttonIdForAPICall);
-      element.addEventListener('click', this.onSubmitClick.bind(this));
+      element?element.addEventListener('click', this.onSubmitClick.bind(this)):false;
     }
 
   }
