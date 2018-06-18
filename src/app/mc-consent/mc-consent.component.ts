@@ -11,15 +11,19 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() callAPI: boolean = false;
   @Input() buttonIdForAPICall: string;
   @Input() apiKey: string;
+  @Input() mcConsentWidth: string;
+  @Input() mcConsentHeight: string;
 
   constructor(private elm: ElementRef, private configService: ConfigService) {
     this.callAPI = elm.nativeElement.getAttribute('callAPI');
     this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
     this.apiKey = elm.nativeElement.getAttribute('apiKey');
+    this.mcConsentWidth = elm.nativeElement.getAttribute('mcConsentWidth');
+    this.mcConsentHeight = elm.nativeElement.getAttribute('mcConsentHeight');
   }
 
-  ngOnInit() { 
-    
+  ngOnInit() {
+
   }
 
   ngAfterViewInit() {
