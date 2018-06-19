@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -6,6 +6,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'mc-consent',
   templateUrl: './mc-consent.component.html',
   styleUrls: ['./mc-consent.component.css']
+/*
+  encapsulation: ViewEncapsulation.None
+*/
 })
 export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() callAPI: boolean = false;
@@ -13,6 +16,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() apiKey: string;
   @Input() mcConsentWidth: string;
   @Input() mcConsentHeight: string;
+  @Input() styleType: string = 'priceless';
+  @Input() channel: string;
 
   constructor(private elm: ElementRef, private configService: ConfigService) {
     this.callAPI = elm.nativeElement.getAttribute('callAPI');
@@ -20,10 +25,19 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     this.apiKey = elm.nativeElement.getAttribute('apiKey');
     this.mcConsentWidth = elm.nativeElement.getAttribute('mcConsentWidth');
     this.mcConsentHeight = elm.nativeElement.getAttribute('mcConsentHeight');
+    this.styleType = elm.nativeElement.getAttribute('styleType');
+    this.channel = elm.nativeElement.getAttribute('channel');
+   /* this.cssHref = this.channel == 'channel1' ? '../../style1.css' :  '../../style2.css';
+    console.log(this.cssHref);*/
   }
 
   ngOnInit() {
 
+    if(this.channel === 'channel1'){
+      require("style-loader!./styles1.css");
+   }else if(this.channel === 'channel2'){
+      require("style-loader!./styles2.css");
+   }
   }
 
   ngAfterViewInit() {
@@ -31,6 +45,9 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     if (this.callAPI) {
       var element = document.getElementById(this.buttonIdForAPICall);
       element?element.addEventListener('click', this.onSubmitClick.bind(this)):false;
+
+      //this.cssHref = this.sanitizer.bypassSecurityTrustUrl(this.channel == 'channel1' ? '../../style1.css' :  '../../style2.css');
+
     }
 
   }
