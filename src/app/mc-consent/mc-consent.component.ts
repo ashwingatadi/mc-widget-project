@@ -11,7 +11,7 @@ interface datatype{
   templateUrl: './mc-consent.component.html',
   styleUrls: ['./mc-consent.component.css'],
   encapsulation: ViewEncapsulation.None
-  
+
 })
 export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() callAPI: boolean = false;
@@ -57,15 +57,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitClick(event) {
-    this.configService.getConfigData().subscribe(
-      data => {
-        var dat = JSON.parse(data._body);
-        var urlOfAPI = dat.consent.api[this.apiKey];
-        console.log("URL of API Call:" + urlOfAPI);
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      })*/
+   
     this.apiService.getResponse().subscribe(
 
       data => {
