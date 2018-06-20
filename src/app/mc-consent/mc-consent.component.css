@@ -1,25 +1,17 @@
 
-mc-consent[styletype='priceless']{
-  font-family: "Verdana, Geneva, Tahoma, sans-serif";
-  font-size: 11px;
+mc-consent[styletype='priceless'], mc-consent[styletype='priceless'] div.customStyle{
+  
+  background-color: #141413;
+  text-align: left;
+  font-family: "Verdana, Geneva, sans-serif";
+	font-size: 11px;
   line-height: 18px;
-  font-weight: normal;
   color: white;
-}
-
-mc-consent[styletype='priceless'] div.customStyle{
-  background-color: black;
 }
 
 
 
 mc-consent[styletype='mastercard']{
-  width: 80%;
-    margin-bottom: 15%;
-    height: 60px;
-    padding-top: 10px;
-    padding-right: 5px;
-    margin-left: 15%;
     font-size: 10px;
     color: #6C6C6C;
     text-align: left;
