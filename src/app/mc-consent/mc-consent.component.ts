@@ -1,6 +1,8 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { ApiconnectService } from '../services/apiconnect.service';
+import { NgForm } from '@angular/forms';
+
 interface datatype{
   data: string;
 }
@@ -17,8 +19,10 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() buttonIdForAPICall: string;
   @Input() width: string;
   @Input() height: string;
-  @Input() styleType: string = 'priceless';
+  @Input() styleType: string;
   consentList: datatype[] = [];
+  @ViewChild('f') form: NgForm;
+
   constructor(
     private elm: ElementRef, 
     private apiService: ApiconnectService ,
@@ -28,6 +32,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       this.width = elm.nativeElement.getAttribute('width');
       this.height = elm.nativeElement.getAttribute('height');
       this.styleType = elm.nativeElement.getAttribute('styleType');
+
+      
   }
 
   ngOnInit() {
@@ -51,28 +57,10 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       var element = document.getElementById(this.buttonIdForAPICall);
       element ? element.addEventListener('click', this.onSubmitClick.bind(this)) : false;
     }
-
+    
   }
 
   onSubmitClick(event) {
-   
-  }
-
-  showPopupForTandC(consent: string) {
-    switch (consent) {
-      case 'cons1':
-        console.log('API Call to show Consent1 Popup');
-        break;
-      case 'cons2':
-        console.log('API Call to show Consent2 Popup');
-        break;
-      case 'cons3':
-        console.log('API Call to show Consent3 Popup');
-        break;
-      case 'cons4':
-        console.log('API Call to show Consent4 Popup');
-        break;
-    }
-    return false;
+    console.log(this.form.value);
   }
 }

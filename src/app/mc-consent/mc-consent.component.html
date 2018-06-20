@@ -1,9 +1,11 @@
-<div [style.width]="width" [style.height]="height" class="mcConsentFontColor">
-  <div *ngFor="let consent of consentList; let i = index">
-    <div class="checkbox">
-      <label>
-        <input name="consent{{i+1}}" type="checkbox" /> {{consent}}
-      </label>
+<form #f='ngForm'>
+  <div [style.width]="width" [style.height]="height" class="mcConsentFontColor customStyle">
+    <div *ngFor="let consent of consentList; let i = index">
+      <div class="checkbox">
+        <label>
+          <input name="consent{{i+1}}" type="checkbox" ngModel #con/> {{consent}}
+        </label>
+      </div>
     </div>
   </div>
-</div>
+</form>

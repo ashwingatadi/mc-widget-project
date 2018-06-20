@@ -1,10 +1,52 @@
 
 mc-consent[styletype='priceless']{
-  color: blue !important;
+  font-family: "Verdana, Geneva, Tahoma, sans-serif";
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: normal;
+  color: white;
 }
 
-mc-consent[styletype='mastercard']{
-  color: red !important;
+mc-consent[styletype='priceless'] div.customStyle{
+  background-color: black;
 }
+
+
+
+mc-consent[styletype='mastercard']{
+  width: 80%;
+    margin-bottom: 15%;
+    height: 60px;
+    padding-top: 10px;
+    padding-right: 5px;
+    margin-left: 15%;
+    font-size: 10px;
+    color: #6C6C6C;
+    text-align: left;
+    float: left;
+    font-family: 'Mark Offc Pro Medium', sans-serif;
+}
+
+mc-consent[styletype='mastercard'] div.customStyle{
+  background-color: #E8E8E8;
+}
+
+
+
+mc-consent[styletype='citypossible']{
+  font-family: "mark-for-mc,Avenir,Helvetica,sans-serif";
+  float: left;
+  width: 100%;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  font-size: 100%;
+  color: #777;
+}
+
+mc-consent[styletype='citypossible'] div.customStyle{
+  background-color: white;
+}
+
+
 
 

@@ -16,6 +16,7 @@ import { McConsentModule } from './mc-consent/mc-consent.module';
 import { McSignupModule } from './mc-signup/mc-signup.module';
 import { AppComponent } from './app.component';
 import { McConsentComponent } from './mc-consent/mc-consent.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { McConsentComponent } from './mc-consent/mc-consent.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     HttpClientModule,
     McConsentModule,
