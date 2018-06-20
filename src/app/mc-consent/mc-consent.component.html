@@ -1,5 +1,5 @@
 <div [style.width]="mcConsentWidth"  [style.height]="mcConsentHeight" class="mcConsentFontColor">
-  <div class="checkbox">
+  <!--<div class="checkbox">
     <label>
       <input type="checkbox" /> I agree to the
       <a (click)="showPopupForTandC('cons1')">terms and conditions</a> for Consent1.
@@ -23,4 +23,14 @@
       <a (click)="showPopupForTandC('cons4')">terms and conditions</a> for Consent4.
     </label>
   </div>
+
+<b>API</b>-->
+
+<div *ngFor="let consent of consentList">
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" /> {{consent}}
+    </label>
+  </div>
+</div>
 </div>

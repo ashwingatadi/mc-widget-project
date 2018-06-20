@@ -1,6 +1,10 @@
 import { Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ApiconnectService } from '../services/apiconnect.service';
+interface datatype{
+  data: string;
+}
 
 @Component({
   selector: 'mc-consent',
@@ -17,8 +21,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() mcConsentHeight: string;
   @Input() styleType: string = 'priceless';
   @Input() channel: string;
-
-  constructor(private elm: ElementRef, private configService: ConfigService) {
+  consentList: datatype[] = [];
+  constructor(private elm: ElementRef, private apiService: ApiconnectService ,private configService: ConfigService) {
     this.callAPI = elm.nativeElement.getAttribute('callAPI');
     this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
     this.apiKey = elm.nativeElement.getAttribute('apiKey');
@@ -29,7 +33,18 @@ export class McConsentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
+    this.apiService.getResponse().subscribe(
 
+      data => {
+       console.log(data[0].consentUseData[0].consentData);
+        this.consentList.push(data[0].consentUseData[0].consentData.data);
+        /*this.consentList = data;*/
+        console.log(typeof this.consentList);
+      /* this.consentList = data.json();
+        this.consentList = Array.of(this.consentList);
+        console.log(typeof this.consentList);*/
+
+      });
   }
 
   ngAfterViewInit() {
@@ -50,7 +65,18 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       },
       (err: HttpErrorResponse) => {
         console.log(err.message);
-      })
+      })*/
+    this.apiService.getResponse().subscribe(
+
+      data => {
+        console.log(data[0].consentUseData[0].consentData);
+        /*this.consentList = data;*/
+        console.log(typeof this.consentList);
+        /* this.consentList = data.json();
+          this.consentList = Array.of(this.consentList);
+          console.log(typeof this.consentList);*/
+
+      });
   }
 
   showPopupForTandC(consent: string) {

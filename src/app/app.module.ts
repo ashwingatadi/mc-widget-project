@@ -10,6 +10,8 @@ import {createCustomElement} from '@angular/elements'
 
 import { McSignupComponent } from './mc-signup/mc-signup.component';
 import { ConfigService } from './services/config.service';
+import { ApiconnectService } from './services/apiconnect.service';
+
 import { McConsentModule } from './mc-consent/mc-consent.module';
 import { McSignupModule } from './mc-signup/mc-signup.module';
 import { AppComponent } from './app.component';
@@ -26,7 +28,7 @@ import { McConsentComponent } from './mc-consent/mc-consent.component';
     McConsentModule,
     McSignupModule,
   ],
-  providers: [ConfigService],
+  providers: [ConfigService,ApiconnectService],
   bootstrap: []
   ,
   entryComponents: [McSignupComponent, McConsentComponent]
