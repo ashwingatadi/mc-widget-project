@@ -5,10 +5,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'mc-consent',
   templateUrl: './mc-consent.component.html',
-  styleUrls: ['./mc-consent.component.css']
-/*
+  styleUrls: ['./mc-consent.component.css'],
   encapsulation: ViewEncapsulation.None
-*/
+  
 })
 export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() callAPI: boolean = false;
@@ -26,28 +25,18 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     this.mcConsentWidth = elm.nativeElement.getAttribute('mcConsentWidth');
     this.mcConsentHeight = elm.nativeElement.getAttribute('mcConsentHeight');
     this.styleType = elm.nativeElement.getAttribute('styleType');
-    this.channel = elm.nativeElement.getAttribute('channel');
-   /* this.cssHref = this.channel == 'channel1' ? '../../style1.css' :  '../../style2.css';
-    console.log(this.cssHref);*/
   }
 
   ngOnInit() {
 
-    if(this.channel === 'channel1'){
-      require("style-loader!./styles1.css");
-   }else if(this.channel === 'channel2'){
-      require("style-loader!./styles2.css");
-   }
+
   }
 
   ngAfterViewInit() {
     //console.log(this.callAPI);
     if (this.callAPI) {
       var element = document.getElementById(this.buttonIdForAPICall);
-      element?element.addEventListener('click', this.onSubmitClick.bind(this)):false;
-
-      //this.cssHref = this.sanitizer.bypassSecurityTrustUrl(this.channel == 'channel1' ? '../../style1.css' :  '../../style2.css');
-
+      element ? element.addEventListener('click', this.onSubmitClick.bind(this)) : false;
     }
 
   }
