@@ -9,23 +9,23 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class McSignupComponent implements OnInit, AfterViewInit {
   useConsent: boolean;
-  configData: any;
+  // configData: any;
   callConsentAPIOnSubmit: boolean = false;
-  buttonIdForConsentAPICall: string;
-  consentApiKey: string;
+  // buttonIdForConsentAPICall: string;
+  // consentApiKey: string;
 
 
   constructor(private configService: ConfigService, private elm: ElementRef) {
     this.useConsent = elm.nativeElement.getAttribute('useConsent');
     this.callConsentAPIOnSubmit = elm.nativeElement.getAttribute('callConsentAPIOnSubmit');
-    this.buttonIdForConsentAPICall = elm.nativeElement.getAttribute('buttonIdForConsentAPICall');
-    this.consentApiKey = elm.nativeElement.getAttribute('consentApiKey');
+    // this.buttonIdForConsentAPICall = elm.nativeElement.getAttribute('buttonIdForConsentAPICall');
+    // this.consentApiKey = elm.nativeElement.getAttribute('consentApiKey');
     //console.log(this.buttonIdForConsentAPICall);
   }
 
   ngOnInit() {
     //console.log(this.useConsent);
-    this.readConfigData();
+    //this.readConfigData();
   }
 
   ngAfterViewInit() {

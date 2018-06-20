@@ -33,9 +33,7 @@
 
     <div *ngIf="[useConsent] == 'true'">
       <mc-consent 
-      buttonIdForAPICall="{{buttonIdForConsentAPICall}}" 
       callAPI="{{callConsentAPIOnSubmit}}" 
-      apiKey="{{consentApiKey}}"
       styleType="mastercard">
       </mc-consent>
     </div>

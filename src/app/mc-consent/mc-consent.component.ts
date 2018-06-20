@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import { ConfigService } from '../services/config.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ApiconnectService } from '../services/apiconnect.service';
 interface datatype{
   data: string;
@@ -16,39 +15,38 @@ interface datatype{
 export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() callAPI: boolean = false;
   @Input() buttonIdForAPICall: string;
-  @Input() apiKey: string;
-  @Input() mcConsentWidth: string;
-  @Input() mcConsentHeight: string;
+  @Input() width: string;
+  @Input() height: string;
   @Input() styleType: string = 'priceless';
-  @Input() channel: string;
   consentList: datatype[] = [];
-  constructor(private elm: ElementRef, private apiService: ApiconnectService ,private configService: ConfigService) {
-    this.callAPI = elm.nativeElement.getAttribute('callAPI');
-    this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
-    this.apiKey = elm.nativeElement.getAttribute('apiKey');
-    this.mcConsentWidth = elm.nativeElement.getAttribute('mcConsentWidth');
-    this.mcConsentHeight = elm.nativeElement.getAttribute('mcConsentHeight');
-    this.styleType = elm.nativeElement.getAttribute('styleType');
+  constructor(
+    private elm: ElementRef, 
+    private apiService: ApiconnectService ,
+    private configService: ConfigService) {
+      this.callAPI = elm.nativeElement.getAttribute('callAPI');
+      this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
+      this.width = elm.nativeElement.getAttribute('width');
+      this.height = elm.nativeElement.getAttribute('height');
+      this.styleType = elm.nativeElement.getAttribute('styleType');
   }
 
   ngOnInit() {
-
-    this.apiService.getResponse().subscribe(
-
-      data => {
-       console.log(data[0].consentUseData[0].consentData);
-        this.consentList.push(data[0].consentUseData[0].consentData.data);
-        /*this.consentList = data;*/
-        console.log(typeof this.consentList);
-      /* this.consentList = data.json();
-        this.consentList = Array.of(this.consentList);
-        console.log(typeof this.consentList);*/
-
-      });
+    this.configService.getConfigData().subscribe(confData => {
+      var jsonData = JSON.parse(confData._body);
+      var serviceCode = jsonData.consent.api.serviceCode;
+      var locale = jsonData.consent.api.locale;
+      var serviceFunctionCode = jsonData.consent.api.serviceFunctionCode;
+      var url = jsonData.consent.api.url;
+      var completeUrl = url + `${serviceCode}/${locale}/${serviceFunctionCode}`;
+      this.apiService.getResponse(completeUrl).subscribe(response => {
+        response.forEach(item => {
+          this.consentList.push(item.consentUseData[0].consentData.data);
+        });
+      })
+    })
   }
 
   ngAfterViewInit() {
-    //console.log(this.callAPI);
     if (this.callAPI) {
       var element = document.getElementById(this.buttonIdForAPICall);
       element ? element.addEventListener('click', this.onSubmitClick.bind(this)) : false;
@@ -58,17 +56,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
 
   onSubmitClick(event) {
    
-    this.apiService.getResponse().subscribe(
-
-      data => {
-        console.log(data[0].consentUseData[0].consentData);
-        /*this.consentList = data;*/
-        console.log(typeof this.consentList);
-        /* this.consentList = data.json();
-          this.consentList = Array.of(this.consentList);
-          console.log(typeof this.consentList);*/
-
-      });
   }
 
   showPopupForTandC(consent: string) {

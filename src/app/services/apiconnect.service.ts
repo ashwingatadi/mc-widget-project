@@ -1,89 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-
-
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-
-/*
-import { Hero } from './hero';
-*/
-/*
-import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
-*/
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
-  })
-};
 
 @Injectable()
 export class ApiconnectService {
-/*
-  http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/consentlanguage/cp/en-US/cp-reg/
-*/
-  heroesUrl = 'http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/consentlanguage/cp/en-US/cp-reg/';  // URL to web api
- /* private handleError: HandleError;*/
 
-  constructor(
-    private http: HttpClient,
-    /*httpErrorHandler: HttpErrorHandler*/) {
-  /*  this.handleError = httpErrorHandler.createHandleError('HeroesService');*/
+  //apiUrl: string; 
+
+  constructor(private http: HttpClient) {
+    //this.getResponse();
   }
 
-  /** GET heroes from the server */
-  getResponse () {
-    console.log(this.heroesUrl);
-    return this.http.get(this.heroesUrl)
-     /* .pipe(
-        catchError(this.handleError('getHeroes', []))
-      );*/
+  getResponse (url): Observable<any> {
+  //   this.configService.getConfigData().subscribe((data)=>{
+  //     var jsonData = JSON.parse(data._body);
+      
+  //     var serviceCode = jsonData.consent.api.serviceCode;
+  //     var locale = jsonData.consent.api.locale;
+  //     var serviceFunctionCode = jsonData.consent.api.serviceFunctionCode;
+  //     var url = jsonData.consent.api.url;
+  //     var completeUrl = url + `${serviceCode}/${locale}/${serviceFunctionCode}`;
+  //     this.apiUrl = completeUrl;
+  //     //console.log(this.apiUrl);
+  //     return this.http.get(this.apiUrl)
+  // });
+  //   //console.log(this.apiUrl);
+     return this.http.get(url);
   }
-
-  /* GET heroes whose name contains search term */
- /* searchHeroes(term: string): Observable<Hero[]> {
-    term = term.trim();
-
-    // Add safe, URL encoded search parameter if there is a search term
-    const options = term ?
-      { params: new HttpParams().set('name', term) } : {};
-
-    return this.http.get<Hero[]>(this.heroesUrl, options)
-      .pipe(
-        catchError(this.handleError<Hero[]>('searchHeroes', []))
-      );
-  }*/
-
-  //////// Save methods //////////
-
-  /** POST: add a new hero to the database */
- /* addHero (hero: Hero): Observable<Hero> {
-    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions)
-      .pipe(
-        catchError(this.handleError('addHero', hero))
-      );
-  }*/
-
-  /** DELETE: delete the hero from the server
-  deleteHero (id: number): Observable<{}> {
-    const url = `${this.heroesUrl}/${id}`; // DELETE api/heroes/42
-    return this.http.delete(url, httpOptions)
-      .pipe(
-        catchError(this.handleError('deleteHero'))
-      );
-  }*/
-
-  /** PUT: update the hero on the server. Returns the updated hero upon success. */
- /* updateHero (hero: Hero): Observable<Hero> {
-    httpOptions.headers =
-      httpOptions.headers.set('Authorization', 'my-new-auth-token');
-
-    return this.http.put<Hero>(this.heroesUrl, hero, httpOptions)
-      .pipe(
-        catchError(this.handleError('updateHero', hero))
-      );
-  }*/
 }
