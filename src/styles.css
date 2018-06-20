@@ -1,0 +1,175 @@
+html {height:100%} 
+.rightVertical{
+background: #141413;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+}
+#member-signup-dialog .rightVertical{
+    float: none;
+}
+#member-signup-dialog .rightVertical {
+    float: none;
+    position: absolute;
+    max-height: 100%;
+}
+.overlayBlack .rightVertical {
+    float: left;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+#member-signup-dialog .rightVertical .border-box.sign-in{
+        border: none;
+}
+#member-signup-dialog .border-box.mc-border-box{
+    background: transparent;
+    width: 450px;
+    margin: 30px auto 30px auto;
+}
+
+#member-signup-dialog .rightVertical .header{
+        text-align: center;
+    margin: 30px 0 10px;
+}
+.overlayBlack .rightVertical .header{
+    margin: 50px 69px 20px 69px;
+}
+.overlayBlack .rightVertical .header{
+    margin-top: 20px;
+}
+.overlayBlack .rightVertical .body{
+    float: left;
+    width: 100%;
+}
+.overlayBlack .rightVertical .body .content ul{
+        float: left;
+    width: 100%;
+}
+.border-box.mc-border-box.sign-in{
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+}
+input#User_email_emailAddress, input.password.sg-btn-size-m, input.password2.sg-btn-size-m{
+        width: 100%;
+    max-width: none;
+    min-width: 0;
+}
+.rightVertical  input{
+    border-radius: 4px;
+    margin: 0;
+    padding: 5px 7px;
+    box-sizing: border-box;
+    height: auto;
+    line-height: 22px;
+}
+.sg-f-bdy-s{
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: normal;
+}
+input.mc_master_check,input.mc_priceless_check{
+        float: left;
+    width: 20px;
+    margin: 3px 0px 0px 0px;
+}
+.label_div.sg-f-bdy-s{
+        float: left;
+    width: calc(100% - 30px);
+    text-align: left;
+}
+.rightVertical a{
+    color: white;
+    text-decoration: underline;
+}
+div#signup-email-submit-button{
+        width: 100%;
+    max-width: none;
+    min-width: 0;
+}
+.primaryButton, .secondaryButton, .navButton{
+    border-radius: 4px;
+    height: 38px;
+    min-width: 176px;
+    background: #141413 !important;
+    border: 1px solid #ffffff;
+}
+.button {
+    display: inline-block;
+    height: 44px;
+    text-transform: none;
+    padding: 5px;
+    min-width: 100px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.primaryButton .title, .secondaryButton .title, .navButton .title{
+    font-family: mc-mark-narrow-medium;
+    font-size: 16px;
+       line-height: 0px;
+    letter-spacing: 0;
+    font-weight: normal;
+}
+.primaryButton .title, .primaryButton:hover .title{
+    color: white !important;
+}
+.primaryButton:hover, .navButton:hover{
+        background: #5f5c57 !important;
+    border: 1px solid #5f5c57;
+}
+.social_icons {
+    margin: 3px 0 0 0;
+    width: 100%;
+}
+.box.sg-btn-size-m{
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+        height: 44px;
+}
+.social_icons .box{
+    border-radius: 4px;
+    background-color: white;
+}
+.loginWithFacebookButton{
+        display: inline-block;
+    width: 98%;
+}
+.social_icons div a img{
+          float: left;
+    display: block;
+    width: 37px;
+    margin-left: 4px;
+    margin-top: 4px;
+}
+.social_icons .social_icon_txt {
+    color: black;
+}
+.social_icons div p{
+    color: #fff;
+    text-align: center;
+    margin: 0 auto;
+    width: 240px;
+    padding-top: 15px;
+    line-height: 20px
+}
+.sg-f-btn{
+        font-family: mc-mark-narrow-medium;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: normal;
+}
+.mc_signup_ul{
+        list-style-type: none;
+    text-align: center;
+}
+ul.susi-options {
+    list-style-type: none;
+}
