@@ -1,5 +1,5 @@
-<form #f='ngForm'>
-  <div [style.width]="width" [style.height]="height" class="mcConsentFontColor customStyle">
+<form #f='ngForm' [style.width]="width" [style.height]="height" [ngStyle] = "customStyle">
+  <div>
     <div *ngFor="let consent of consentList; let i = index">
       <div class="checkbox">
         <label>

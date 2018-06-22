@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation,
 import { ConfigService } from '../services/config.service';
 import { ApiconnectService } from '../services/apiconnect.service';
 import { NgForm } from '@angular/forms';
+import { NgStyle} from '@angular/common';
 
 interface datatype{
   data: string;
@@ -19,7 +20,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   @Input() buttonIdForAPICall: string;
   @Input() width: string;
   @Input() height: string;
-  @Input() styleType: string;
+  @Input() style: string;
+  customStyle: Object;
   consentList: datatype[] = [];
   @ViewChild('f') form: NgForm;
 
@@ -31,7 +33,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
       this.width = elm.nativeElement.getAttribute('width');
       this.height = elm.nativeElement.getAttribute('height');
-      this.styleType = elm.nativeElement.getAttribute('styleType');
+      this.style = elm.nativeElement.getAttribute('style');
 
       
   }
@@ -57,10 +59,54 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       var element = document.getElementById(this.buttonIdForAPICall);
       element ? element.addEventListener('click', this.onSubmitClick.bind(this)) : false;
     }
+
+    //debugger;
+    if(this.style){
+      //this.customStyle = JSON.parse(this.style);
+      //console.log(this.customStyle);
+        this.parseToObject(this.style);
+        // var str = '{' + this.style + '}'; 
+        // this.customStyle = Object(this.style);
+        // console.log(this.customStyle);
+    }
     
   }
 
   onSubmitClick(event) {
     console.log(this.form.value);
   }
+
+  parseToObject(str: string){
+    //console.log(str);
+    let splStr: string[] = str.split(';')
+    var keys = [];
+    var vals = [];
+    var num = 0;
+    let frmtedStr: string = '';
+
+    splStr.forEach(str => {
+      console.log(str);
+      if(str){
+        let stlSpl = str.split(":");
+        keys.push(stlSpl[0]);
+        vals.push(stlSpl[1]);
+        num++;
+      }
+      
+    });
+
+    frmtedStr = frmtedStr + "{";
+    for(let i =0; i<num; i++){
+      frmtedStr = frmtedStr + "\"" + keys[i].trim() + "\":\"" + vals[i].trim() + "\"";
+      if(i!=num-1){
+        frmtedStr = frmtedStr + ",";
+      }
+    }
+    frmtedStr = frmtedStr + "}";
+    this.customStyle = JSON.parse(frmtedStr);
+    console.log(JSON.parse(frmtedStr));
+  }
 }
+
+ 
+

@@ -6,8 +6,7 @@ gulp.task('concat', function () {
   return gulp
     .src([
       `${dir}/runtime.js`, 
-      `${dir}/polyfills.js`, 
-      `${dir}/vendor.js`, 
+      `${dir}/polyfills.js`,
       `${dir}/main.js`])
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest(`${dir}/`));
