@@ -62,7 +62,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       var mastercarddefaultstyle = myObj.styles;
       this.appendStyle(mastercarddefaultstyle);
     }else{
-
     }
   }
 
@@ -71,10 +70,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     style.type = 'text/css';
     style.appendChild(document.createTextNode(content));
     this.elm.nativeElement.appendChild(style);*/
-
     const style = this.renderer.createElement('style');
     const text = this.renderer.createText(content);
-
     this.renderer.appendChild(style, text);
     this.renderer.appendChild(this.elm.nativeElement, style);
   }
@@ -100,7 +97,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       var element = document.getElementById(this.buttonIdForAPICall);
       element ? element.addEventListener('click', this.onSubmitClick.bind(this)) : false;
     }
-
     //debugger;
     /*if(this.style){
       //this.customStyle = JSON.parse(this.style);
@@ -110,7 +106,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
         // this.customStyle = Object(this.style);
         // console.log(this.customStyle);
     }*/
-
   }
 
   renderStyle(){
