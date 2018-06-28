@@ -166,34 +166,70 @@ export class McConsentComponent implements OnInit, AfterViewInit {
           var element = this.widgetstylesSplited[l].substring(0, idx);
           var elemStyle = this.widgetstylesSplited[l].substring(idx + 1, this.widgetstylesSplited[l].length);
           elemStyle = elemStyle.replace(/[{()}]/g, '');
-         /* if(element.indexOf('#') === -1){
+          //refactor style
+          var elemStyleSpilted = elemStyle.split(';');
 
+          if(element.indexOf('#') === -1){
+            var currentWidget = document.getElementById('WidgetComponent'); // get component html
+            if (element !== 'div') {  // code for non divs
+              var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element); // select non
+              //var selectedElemNonDiv = currentWidget.querySelectorAll(element);
+              if (selectedElemNonDiv.length === 1) { // if only 1 elem
+                elemStyleSpilted.forEach(item => {
+                  var colunIdx = item.indexOf(':');
+                  var stylepop  = item.substring(0, colunIdx); //beforecolun
+                  var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
+                  this.renderer.setStyle(selectedElemNonDiv['0'], stylepop , styleval );
+                });
+                //this.renderer.setProperty(selectedElemNonDiv['0'], 'style', elemStyle);
+                //selectedElemNonDiv['0'].setAttribute("style", elemStyle);
+              } else {
+                for (var m = 0; m < selectedElemNonDiv.length; m++) {
+                  // for loop
+                  var currIdx = selectedElemNonDiv[m];
+
+                  elemStyleSpilted.forEach(item => {
+                    var colunIdx = item.indexOf(':');
+                    var stylepop  = item.substring(0, colunIdx); //beforecolun
+                    var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
+                    this.renderer.setStyle(currIdx, stylepop , styleval );
+                  });
+                  //this.renderer.setProperty(currIdx, 'style', elemStyle);
+                  //currIdx.setAttribute("style",elemStyle);
+                }
+              }
+            } else if(element === 'div') { // add style to parent div
+              this.renderer.setProperty(selectedElemDiv, 'style', elemStyle);
+              //selectedElemDiv.setAttribute("style",elemStyle)
+            }
           }else{
-            console.log(element.indexOf('#'));
-            console.log(element);
             var hashIdx = element.indexOf('#');
-            var beforeHash = element.substring(0, hashIdx);
-            var afterHash = element.substring(hashIdx + 1, element.length);
-            var elemFromDom = document.getElementsByTagName(beforeHash);
-          }*/
-          var currentWidget = document.getElementById('WidgetComponent'); // get component html
-          if (element !== 'div') {  // code for non divs
-            var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element); // select non
-            //var selectedElemNonDiv = currentWidget.querySelectorAll(element);
-            if (selectedElemNonDiv.length === 1) { // if only 1 elem
-              this.renderer.setProperty(selectedElemNonDiv['0'], 'style', elemStyle);
-              //selectedElemNonDiv['0'].setAttribute("style", elemStyle);
-            } else {
-              for (var m = 0; m < selectedElemNonDiv.length; m++) {
-                // for loop
-                var currIdx = selectedElemNonDiv[m];
-                this.renderer.setProperty(currIdx, 'style', elemStyle);
-                //currIdx.setAttribute("style",elemStyle);
+            var beforeHashElem = element.substring(0, hashIdx);
+            var afterHashElemIdentifier = element.substring(hashIdx + 1, element.length);
+
+            var catchIdentifier = '' + beforeHashElem + '[identifier=' + afterHashElemIdentifier + ']' ;
+
+            var elemFromDom = document.querySelectorAll(catchIdentifier);
+
+            if(elemFromDom.length === 1){
+              elemStyleSpilted.forEach(item => {
+                var colunIdx = item.indexOf(':');
+                var stylepop  = item.substring(0, colunIdx); //beforecolun
+                var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
+                this.renderer.setStyle(elemFromDom['0'], stylepop , styleval );
+              });
+              //this.renderer.setStyle(this.elRef.nativeElement, 'color', 'red');
+              //this.renderer.setProperty(elemFromDom['0'], 'style', elemStyle);
+            }else{
+              for(var e=0;e<elemFromDom.length;e++){
+                  elemStyleSpilted.forEach(itemy => {
+                  var colunIdx = itemy.indexOf(':');
+                  var stylepop  = itemy.substring(0, colunIdx); //beforecolun
+                  var styleval = itemy.substring(colunIdx + 1, itemy.length); //aftercolun
+                  this.renderer.setStyle(elemFromDom[e], stylepop , styleval );
+                });
               }
             }
-          } else if(element === 'div') { // add style to parent div
-            this.renderer.setProperty(selectedElemDiv, 'style', elemStyle);
-            //selectedElemDiv.setAttribute("style",elemStyle)
           }
         } // end of foor loop
       } // end of 2nd else  loop
