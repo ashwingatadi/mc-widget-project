@@ -34,7 +34,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   private mastercardtheme1;
 
   constructor(
-    private elm: ElementRef, 
+    private elm: ElementRef,
     private apiService: ApiconnectService ,
     private renderer: Renderer2,
     private configService: ConfigService) {
@@ -42,11 +42,9 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
       this.width = elm.nativeElement.getAttribute('width');
       this.height = elm.nativeElement.getAttribute('height');
-
-
-    this.widgetclasses = elm.nativeElement.getAttribute('widgetclasses');
-    this.widgetstyles = elm.nativeElement.getAttribute('widgetstyles');
-    this.mastercardtheme1 = elm.nativeElement.getAttribute('mastercardtheme');
+      this.widgetclasses = elm.nativeElement.getAttribute('widgetclasses');
+      this.widgetstyles = elm.nativeElement.getAttribute('widgetstyles');
+      this.mastercardtheme1 = elm.nativeElement.getAttribute('mastercardtheme');
     /*if (this.widgetstyle !== null || this.widgetstyle !== undefined || this.widgetstyle !== '') {
       console.log(this.widgetstyle);
       console.log(' type of this.widgetstyle');
@@ -129,7 +127,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       this.widgetstylesSplited = this.widgetstyles.split(' ');
     }
 
-
     //  Class for individual component elements
     if(this.widgetclassesSplited !== undefined) { // parent block validation
       for (var i = 0; i < this.widgetclassesSplited.length; i++) {
@@ -139,7 +136,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
         var elemClass = this.widgetclassesSplited[i].substring(idx + 1, this.widgetclassesSplited[i].length);
 
         //var currentWidget = document.getElementById('WidgetComponent');  // get component html
-
         if (element !== 'div') {  // code for non divs
           //var selectedElemNonDiv = currentWidget.querySelectorAll(element);
           var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element);
@@ -163,7 +159,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     } // parent block validation check end
 
     // Inline style for individual or entire component
-
     if(this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined){ } // validation check for attributes in component definition
     else {
       if(this.widgetstyles.charAt(0) === '{'){
@@ -173,36 +168,20 @@ export class McConsentComponent implements OnInit, AfterViewInit {
         for (var l = 0; l < this.widgetstylesSplited.length; l++) {
           var idx = this.widgetstylesSplited[l].indexOf('.');
 
-          var hashidxarr =[];
-          //hashidxarr.push(this.widgetstylesSplited[i].indexOf('#'));
-
-          console.log('this.widgetstylesSplited[2]');
-          console.log(this.widgetstylesSplited[l].indexOf('#'));
-
-
           var element = this.widgetstylesSplited[l].substring(0, idx);
           var elemStyle = this.widgetstylesSplited[l].substring(idx + 1, this.widgetstylesSplited[l].length);
           elemStyle = elemStyle.replace(/[{()}]/g, '');
-
-
          /* if(element.indexOf('#') === -1){
 
           }else{
             console.log(element.indexOf('#'));
             console.log(element);
             var hashIdx = element.indexOf('#');
-
             var beforeHash = element.substring(0, hashIdx);
             var afterHash = element.substring(hashIdx + 1, element.length);
-
-
             var elemFromDom = document.getElementsByTagName(beforeHash);
-
           }*/
-
-
           var currentWidget = document.getElementById('WidgetComponent'); // get component html
-
           if (element !== 'div') {  // code for non divs
             var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element); // select non
             //var selectedElemNonDiv = currentWidget.querySelectorAll(element);
@@ -250,7 +229,6 @@ export class McConsentComponent implements OnInit, AfterViewInit {
         vals.push(stlSpl[1]);
         num++;
       }
-      
     });
 
     frmtedStr = frmtedStr + "{";
@@ -266,5 +244,5 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   }
 }
 
- 
+
 
