@@ -12,17 +12,15 @@
      <div class="row">
       <div class="col-sm-6">
         <mc-signup
-        useConsent="true"
+        useConsent="false"
         callConsentAPIOnSubmit="true"
         ></mc-signup>
       </div>
       <div class="col-sm-6">
         <mc-consent  
-          style = "color: yellow; background-color: red;font-size: 10px"
+          style = ""
           buttonIdForAPICall="outsideBtnId" 
-          callAPI="true" 
-          width="300px" 
-          height="200px"></mc-consent>
+          callAPI="true"></mc-consent>
         <button id="outsideBtnId">Click Me</button>
         
       </div>

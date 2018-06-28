@@ -9,10 +9,19 @@
     },
     "consent":{
         "api":{
-            "serviceCode": "pc",
-            "serviceFunctionCode": "pc-reg",
+            "serviceCode": "dp",
+            "serviceFunctionCode": "dp-reg",
             "locale": "en-US",
             "url": "http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/consentlanguage/"
+        }
+    
+    },
+    "categoryCode":{
+        "em":{
+            "mandatory": true
+        },
+        "tc":{
+            "mandatory": true
         }
     }
 }

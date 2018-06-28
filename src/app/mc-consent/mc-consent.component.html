@@ -1,11 +1,35 @@
-<form #f='ngForm' [style.width]="width" [style.height]="height" [ngStyle] = "customStyle">
+<form #f='ngForm' [style.width]="width" [style.height]="height" [ngStyle]="customStyle">
   <div>
     <div *ngFor="let consent of consentList; let i = index">
       <div class="checkbox">
         <label>
-          <input name="consent{{i+1}}" type="checkbox" ngModel #con/> {{consent}}
+          <input *ngIf="consentList?.length != i+1" name="consent{{i+1}}" type="checkbox" ngModel #con/>
+          <div [innerHTML]=" consent"></div>
+          <!-- <div>
+            <p>I agree to the
+              <a title="Developer Program Agreement" (click)="_getLeagalContent()" href="javascript:void(0);">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described
+              in the&nbsp;
+              <a title="Privacy Policy" href="https://stage.services.mastercard.com/dm/content/consentmanagement/legalcontent/dp/en-us/dp-reg/pn">Mastercard Privacy Policy</a>
+              <br>
+            </p>
+          </div> -->
         </label>
       </div>
     </div>
+    <button (click)="openModal('custom-modal-1')">Open Modal 1</button>
+    <button (click)="_getLeagalContent()">Open Modal 2</button>
+    <jw-modal id="custom-modal-1">
+      <div *ngFor="let legal of legalList; let i = index">
+        <button (click)="closeModal('custom-modal-1');">Close</button>
+        <div [innerHTML]="legal">
+        </div>
+      </div>
+
+    </jw-modal>
+
+    <jw-modal id="custom-modal-2">
+      <h1 style="height:1000px">A Tall Custom Modal!</h1>
+      <button (click)="closeModal('custom-modal-2');">Close</button>
+    </jw-modal>
   </div>
 </form>
