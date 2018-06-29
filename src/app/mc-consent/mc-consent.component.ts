@@ -1,39 +1,50 @@
-import { Renderer2, PipeTransform, Pipe, Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Renderer2, PipeTransform, Pipe, Component, OnInit, AfterViewInit, ElementRef, Input, ViewEncapsulation, ViewChild, AfterViewChecked, Output } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { ApiconnectService } from '../services/apiconnect.service';
 import { NgForm } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 
-import { ModalService } from '../_services';
-import { EventEmitter } from 'events';
-import { Observable, observable } from "rxjs";
-import { element } from 'protractor';
-import { EventListener } from '@angular/core/src/debug/debug_node';
+import { ModalService } from '../services/modal.service';
+import { EventEmitter } from '@angular/core';
+import { environment } from '../../environments/environment';
+
+
 
 interface datatype{
   data: string;
 }
-@Pipe({ name: 'safeHtml'})
-export class SafeHtmlPipe implements PipeTransform  {
-  constructor(private sanitized: DomSanitizer) {}
-  transform(value) {
-    return this.sanitized.bypassSecurityTrustHtml(value);
-  }
-}
+// @Pipe({ name: 'safeHtml'})
+// export class SafeHtmlPipe implements PipeTransform  {
+//   constructor(private sanitized: DomSanitizer) {}
+//   transform(value) {
+//     return this.sanitized.bypassSecurityTrustHtml(value);
+//   }
+// }
 @Component({
   selector: 'mc-consent',
   templateUrl: './mc-consent.component.html',
-  styleUrls: ['./mc-consent.component.css','../_content/modal.less'],
+  styleUrls: ['./mc-consent.component.css','../modal/modal.component.less'],
   encapsulation: ViewEncapsulation.None
 
 })
-export class McConsentComponent implements OnInit, AfterViewInit {
+export class McConsentComponent implements OnInit, AfterViewInit, AfterViewChecked {
+  private listenerAdded: boolean = false;
   @Input() callAPI: boolean = false;
   @Input() buttonIdForAPICall: string;
   @Input() width: string;
   @Input() height: string;
   @Input() mastercardtheme;
+  @Output() bindEvent: EventEmitter<{aTag: any}>= new EventEmitter();
+  locale: string;
 
+  private sc: string;
+  private sfc: string;
+
+
+  private checkAfterInitFlag: boolean = false;
+  consentElement: HTMLElement;
+
+  url: string;
+  //public defaultLocale: string = 'en-US';
   customStyle: Object;
   @Input() data;
   public widgetstylenew;
@@ -41,7 +52,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   private widgetstyles;
   private widgetclassesSplited: String[];
   private widgetstylesSplited: String[];
-  consentList: datatype[] = [];
+  consentList: any[] = [];
   legalList: datatype[] = [];
   legalC: string = '';
   @ViewChild('f') form: NgForm;
@@ -60,6 +71,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       this.buttonIdForAPICall = elm.nativeElement.getAttribute('buttonIdForAPICall');
       this.width = elm.nativeElement.getAttribute('width');
       this.height = elm.nativeElement.getAttribute('height');
+      this.locale = elm.nativeElement.getAttribute('locale');
       this.widgetclasses = elm.nativeElement.getAttribute('widgetclasses');
       this.widgetstyles = elm.nativeElement.getAttribute('widgetstyles');
       this.mastercardtheme1 = elm.nativeElement.getAttribute('mastercardtheme');
@@ -97,11 +109,15 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.configService.getConfigData().subscribe(confData => {
       var jsonData = JSON.parse(confData._body);
-      var serviceCode = jsonData.consent.api.serviceCode;
-      var locale = jsonData.consent.api.locale;
-      var serviceFunctionCode = jsonData.consent.api.serviceFunctionCode;
-      var url = jsonData.consent.api.url;
-      var completeUrl = url + `${serviceCode}/${locale}/${serviceFunctionCode}`;
+      var serviceCode = jsonData.consent.serviceCode;
+      var serviceFunctionCode = jsonData.consent.serviceFunctionCode;
+
+      this.sc = serviceCode;
+      this.sfc = serviceFunctionCode;
+
+
+      var url = environment.baseUrl + 'consentlanguage/';
+      var completeUrl = url + `${serviceCode}/${this.locale}/${serviceFunctionCode}`;
       this.apiService.getResponse(completeUrl).subscribe(response => {
         response.forEach(item => {
           //console.log(item)
@@ -110,32 +126,56 @@ export class McConsentComponent implements OnInit, AfterViewInit {
           htmlObject.innerHTML = s;
           const consentLinks = htmlObject.getElementsByTagName("a")
           
-          if(consentLinks.length > 0) {
-            //console.log(consentLinks);
-            for(var i = 0; i< consentLinks.length; i++) {
+          // if(consentLinks.length > 0) {
+          //   //console.log(consentLinks);
+          //   for(var i = 0; i< consentLinks.length; i++) {
               
-              let linkParameters = consentLinks[i].href.split('/')
-              linkParameters.forEach(element => {
+          //     let linkParameters = consentLinks[i].href.split('/')
+          //     linkParameters.forEach(element => {
                
-                //console.log(element)
-              });
-              if(serviceCode==linkParameters[7] && serviceFunctionCode == linkParameters[9] && 'legalcontent'==linkParameters[6]){
-                console.log(consentLinks[i].href);
-                htmlObject.querySelectorAll("a[title=\"consentLinks[i].title\"]")
-                //console.log(consentLinks[i].title);
-                //console.log(linkParameters[6] +linkParameters[7] +linkParameters[9])
-                //console.log(consentLinks[i]);
-                consentLinks[i].setAttribute("onclick","_getLeagalContent("+consentLinks[i].href+")")
-                consentLinks[i].removeAttribute("href")
-                //console.log(htmlObject.innerHTML);
-              }
-            }
-          }
+          //       //console.log(element)
+          //     });
+          //     if(serviceCode==linkParameters[7] && serviceFunctionCode == linkParameters[9] && 'legalcontent'==linkParameters[6]){
+          //       //console.log(consentLinks[i].href);
+          //       // htmlObject.querySelectorAll("a[title=\"consentLinks[i].title\"]");
+          //       // //console.log(consentLinks[i].title);
+          //       // //console.log(linkParameters[6] +linkParameters[7] +linkParameters[9])
+          //       // //console.log(consentLinks[i]);
+          //       // consentLinks[i].setAttribute("onclick","_getLeagalContent('" + consentLinks[i].href + "')");
+          //       // //consentLinks[i].setAttribute("onclick","test()");
+          //       // // debugger;
+          //       // // this.bindEvent.asObservable() as Subject<{aTag: any}> //.emit({aTag: consentLinks[i]}).asObservable();  //.emit();
+          //       // // this.bindEvent
+          //       // //(<HTMLAnchorElement>consentLinks[i]).addEventListener('click',this.test.bind(this))
+          //       // consentLinks[i].removeAttribute("href");
+          //       // // consentLinks[i].removeAttribute("target");
+
+          //       // //console.log(htmlObject.innerHTML);
+          //       // //console.log('one');
+          //       // this.consentElement = consentLinks[i];
+          //       // this.url = consentLinks[i].href;
+          //       // this.checkAfterInitFlag = true;
+                
+                
+          //     }
+          //   }
+          // }
           //this.consentList = consentLinks;
+           //console.log(htmlObject.innerHTML.toString);
+// console.log('---------------------------------');
+// console.log(item.consentUseData[0].consentData.data);
+
+
           this.consentList.push(item.consentUseData[0].consentData.data);
+          //this.consentList.push(htmlObject.innerHTML.toString());
         });
       })
     })
+  }
+
+  onBindEvent(eData){
+    debugger;
+    console.log(eData);
   }
   
   ngAfterViewInit() {
@@ -271,13 +311,47 @@ export class McConsentComponent implements OnInit, AfterViewInit {
         } // end of foor loop
       } // end of 2nd else  loop
     } // end of 1st main else  loop
-
   }
 
   ngAfterContentChecked(){
     this.renderStyle();
-    // alert('ngAfterContentChecked');
+    
+    var anchors = document.getElementsByTagName('a');
+    
+    
+
+    if(anchors.length >0 && !this.listenerAdded)
+      {
+        this.listenerAdded = true;
+        for(var i=0;i<anchors.length; i++){
+            let href:string = anchors[i].href;;
+            let urlArr: string[] = href.substring(href.indexOf('legalcontent'), href.length).split('/');
+            
+            if(urlArr[0].toLowerCase() == 'legalcontent' && urlArr[1].toLowerCase() == this.sc &&  urlArr[3].toLowerCase() == this.sfc){
+              anchors[i].removeAttribute("href");
+              anchors[i].addEventListener('click',this.anchorevent.bind(this, href));  
+            }
+          }
+        }
+          // we have to use the href property of the anchor to manipulate the click event.
+         
+          
+          
+          // anchors[0].addEventListener('click',eventHandler);
+          
+      
   }
+ 
+  anchorevent = function(url: string) {
+        
+        var completeUrl = url;
+        this.apiService.getResponse(completeUrl).subscribe(response => {
+         this.legalList.push(response.consentUseData[0].consentData.data);
+        })
+        this.openModal('custom-modal-1');
+        
+   
+}
   onSubmitClick(event) {
     console.log(this.form.value);
   }
@@ -319,11 +393,33 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   closeModal(id: string) {
       this.modalService.close(id);
   }
-  _getLeagalContent(){
+
+  ngAfterViewChecked(){
+    // if(this.checkAfterInitFlag){
+    //   //debugger;
+      
+    //   this.consentElement.removeAttribute('href');
+    //   this.consentElement.addEventListener('click', this._getLeagalContent.bind(this, this.url));
+    //   console.log(this.consentElement);
+    //   this.checkAfterInitFlag = false;
+    // }
+
+    if(this.checkAfterInitFlag){
+      //debugger;
+      
+      this.consentElement.removeAttribute('href');
+      this.consentElement.addEventListener('click', this._getLeagalContent.bind(this, this.url));
+      //console.log(this.consentElement);
+      this.checkAfterInitFlag = false;
+    }
     
+  }
+
+  _getLeagalContent(url: string){
+    console.log(url);
     //console.log('reached')
     //var completeUrl = 'https://stage.services.mastercard.com/dm/content/consentmanagement/legalcontent/mccom/en-us/mccom-sl/pn';
-    var completeUrl = 'http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn';
+    var completeUrl = 'http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn';//url; 
     this.apiService.getResponse(completeUrl).subscribe(response => {
       // response.forEach(item => {
       //   this.legalList.push(item.consentUseData[0].consentData.data);

@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/'
 };
 
 /*

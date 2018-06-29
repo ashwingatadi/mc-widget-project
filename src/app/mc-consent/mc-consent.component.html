@@ -1,10 +1,12 @@
-<form #f='ngForm' [style.width]="width" [style.height]="height"   [ngStyle]="widgetstylenew">
-  <div id="WidgetComponent">
+<form #f='ngForm' [style.width]="width" [style.height]="height" locale="locale" [ngStyle]="widgetstylenew">
+  <div id="WidgetComponent" >
     <div *ngFor="let consent of consentList; let i = index">
       <div class="checkbox">
         <label>
           <input *ngIf="consentList?.length != i+1" name="consent{{i+1}}" type="checkbox" ngModel #con/>
-          <div [innerHTML]=" consent"></div>
+          <div [innerHTML]="consent | safe: 'html'" (bindEvent) = "onBindEvent($event);"></div>
+          <!-- <div>{{consent | safeHtml}}</div> -->
+          <!-- <p>I agree to the <a title="Developer Program Agreement" target="_blank" (click)="_getLeagalContent('http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn')" xyz="abc">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described in the&nbsp;<a title="Privacy Policy" href="http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/cp-reg/pn " target="_blank">Mastercard Privacy Policy</a><br> </p> -->
           <!-- <div>
             <p>I agree to the
               <a title="Developer Program Agreement" (click)="_getLeagalContent()" href="javascript:void(0);">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described
@@ -21,7 +23,7 @@
     <jw-modal id="custom-modal-1">
       <div *ngFor="let legal of legalList; let i = index">
         <button (click)="closeModal('custom-modal-1');">Close</button>
-        <div [innerHTML]="legal">
+        <div [innerHTML]="legal | safe: 'html'">
         </div>
       </div>
 
