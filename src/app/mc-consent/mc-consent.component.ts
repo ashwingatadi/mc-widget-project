@@ -30,14 +30,16 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
   private listenerAdded: boolean = false;
   @Input() callAPI: boolean = false;
   @Input() buttonIdForAPICall: string;
+  @Input() frmName: string;
   @Input() width: string;
   @Input() height: string;
   @Input() mastercardtheme;
   @Output() bindEvent: EventEmitter<{aTag: any}>= new EventEmitter();
   locale: string;
-
+  filter : boolean = false;
   private sc: string;
   private sfc: string;
+  private userCategoryCode: string;
 
 
   private checkAfterInitFlag: boolean = false;
@@ -52,7 +54,7 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
   private widgetstyles;
   private widgetclassesSplited: String[];
   private widgetstylesSplited: String[];
-  consentList: any[] = [];
+  consentList: any[][] = [[]];
   legalList: datatype[] = [];
   legalC: string = '';
   @ViewChild('f') form: NgForm;
@@ -75,6 +77,7 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
       this.widgetclasses = elm.nativeElement.getAttribute('widgetclasses');
       this.widgetstyles = elm.nativeElement.getAttribute('widgetstyles');
       this.mastercardtheme1 = elm.nativeElement.getAttribute('mastercardtheme');
+      this.frmName = elm.nativeElement.getAttribute('frmName');
     /*if (this.widgetstyle !== null || this.widgetstyle !== undefined || this.widgetstyle !== '') {
       console.log(this.widgetstyle);
       console.log(' type of this.widgetstyle');
@@ -114,68 +117,30 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
 
       this.sc = serviceCode;
       this.sfc = serviceFunctionCode;
-
+      //this.userCategoryCode = jsonData.userCategoryCode.mandatory[]
 
       var url = environment.baseUrl + 'consentlanguage/';
       var completeUrl = url + `${serviceCode}/${this.locale}/${serviceFunctionCode}`;
       this.apiService.getResponse(completeUrl).subscribe(response => {
-        response.forEach(item => {
-          //console.log(item)
-          var s = item.consentUseData[0].consentData.data;
-          var htmlObject = document.createElement('div');
-          htmlObject.innerHTML = s;
-          const consentLinks = htmlObject.getElementsByTagName("a")
+        response.forEach((item, index) => {
           
-          // if(consentLinks.length > 0) {
-          //   //console.log(consentLinks);
-          //   for(var i = 0; i< consentLinks.length; i++) {
-              
-          //     let linkParameters = consentLinks[i].href.split('/')
-          //     linkParameters.forEach(element => {
-               
-          //       //console.log(element)
-          //     });
-          //     if(serviceCode==linkParameters[7] && serviceFunctionCode == linkParameters[9] && 'legalcontent'==linkParameters[6]){
-          //       //console.log(consentLinks[i].href);
-          //       // htmlObject.querySelectorAll("a[title=\"consentLinks[i].title\"]");
-          //       // //console.log(consentLinks[i].title);
-          //       // //console.log(linkParameters[6] +linkParameters[7] +linkParameters[9])
-          //       // //console.log(consentLinks[i]);
-          //       // consentLinks[i].setAttribute("onclick","_getLeagalContent('" + consentLinks[i].href + "')");
-          //       // //consentLinks[i].setAttribute("onclick","test()");
-          //       // // debugger;
-          //       // // this.bindEvent.asObservable() as Subject<{aTag: any}> //.emit({aTag: consentLinks[i]}).asObservable();  //.emit();
-          //       // // this.bindEvent
-          //       // //(<HTMLAnchorElement>consentLinks[i]).addEventListener('click',this.test.bind(this))
-          //       // consentLinks[i].removeAttribute("href");
-          //       // // consentLinks[i].removeAttribute("target");
-
-          //       // //console.log(htmlObject.innerHTML);
-          //       // //console.log('one');
-          //       // this.consentElement = consentLinks[i];
-          //       // this.url = consentLinks[i].href;
-          //       // this.checkAfterInitFlag = true;
-                
-                
-          //     }
-          //   }
-          // }
-          //this.consentList = consentLinks;
-           //console.log(htmlObject.innerHTML.toString);
-// console.log('---------------------------------');
-// console.log(item.consentUseData[0].consentData.data);
-
-
-          this.consentList.push(item.consentUseData[0].consentData.data);
+          this.consentList[index] = [];
+          // var s = item.consentUseData[0].consentData.data;
+           this.consentList[index]['linkData'] = item.consentUseData[0].consentData.data;
+           var apiUserCategoryCode = item.consentUseData[0].useCategory.useCategoryCode;
+           this.consentList[index]['isRequired'] = jsonData.userCategoryCode.mandatory.includes(apiUserCategoryCode);
+          //console.log(jsonData.userCategoryCode.mandatory.includes(apiUserCategoryCode));
+          
           //this.consentList.push(htmlObject.innerHTML.toString());
         });
       })
-    })
+    }) 
+    console.log(this.consentList);
   }
 
   onBindEvent(eData){
-    debugger;
-    console.log(eData);
+    //debugger;
+    //console.log(eData);
   }
   
   ngAfterViewInit() {
@@ -315,31 +280,23 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
 
   ngAfterContentChecked(){
     this.renderStyle();
-    
-    var anchors = document.getElementsByTagName('a');
-    
-    
-
+    var anchors = this.elm.nativeElement.getElementsByTagName('a');
+    //console.log(anchors);
     if(anchors.length >0 && !this.listenerAdded)
       {
         this.listenerAdded = true;
         for(var i=0;i<anchors.length; i++){
             let href:string = anchors[i].href;;
             let urlArr: string[] = href.substring(href.indexOf('legalcontent'), href.length).split('/');
-            
+            console.log(anchors[i].href);
             if(urlArr[0].toLowerCase() == 'legalcontent' && urlArr[1].toLowerCase() == this.sc &&  urlArr[3].toLowerCase() == this.sfc){
               anchors[i].removeAttribute("href");
+              //anchors[i].setAttribute("required","true");
               anchors[i].addEventListener('click',this.anchorevent.bind(this, href));  
             }
           }
         }
           // we have to use the href property of the anchor to manipulate the click event.
-         
-          
-          
-          // anchors[0].addEventListener('click',eventHandler);
-          
-      
   }
  
   anchorevent = function(url: string) {
@@ -353,9 +310,57 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
    
 }
   onSubmitClick(event) {
+    //debugger;
     console.log(this.form.value);
+    console.log(this.frmName); //return false;
+    //var frmName = document.forms[1];//.getElementById(this.frmName);
+    //console.log(frmName);
+    var frmName = (<HTMLInputElement>document.getElementById(this.frmName));
+    //console.log(tempElement);
+    //console.log(frmName.isv);
+    //console.log(frmName);
+     if(frmName.checkValidity()) {
+       //console.log(frmName);
+       //console.log(this.form);
+       
+       if(!this.form.valid) {
+        //console.log(this.form.value.consent2);  
+        //debugger;
+         //console.log(frmName + 'vasim');
+        //  frmName.noValidate=true;
+        
+        event.preventDefault();
+        //event.stopPropagation();
+         //debugger;
+         //frmName.setAttribute("novalidate","true");
+         //event.stopPropagation();
+         //return false;
+         //event.stopPropagation();
+       } 
+       document.getElementById("errorConcent").innerHTML = "This is required field";
+       return false;
+     }
+     document.getElementById("errorConcent").innerHTML = "";
+    // return false;
   }
-
+  onFilterChange(eve: any) {
+    this.filter = !this.filter;
+    console.log(this.filter);
+    // var frmName = (<HTMLInputElement>document.getElementById(this.frmName));
+    // var ffr = document.getElementById(this.frmName);
+    
+    // if(this.filter) {
+    //   if(frmName.checkValidity()) {
+    //     if(!this.form.valid) {
+    //       event.preventDefault();
+    //     event.stopPropagation();
+    //     }
+    //     document.getElementById("errorConcent").innerHTML = "This is required field";
+    //     return false;
+    //   }
+    //     document.getElementById("errorConcent").innerHTML = "";
+    // }
+  }
   parseToObject(str: string){
     str = str.replace(/[{()}]/g, '');
 
