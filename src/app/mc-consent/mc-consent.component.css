@@ -1,0 +1,103 @@
+.errorConcentBlock{
+  color:red;
+}
+
+
+jw-modal .jw-modal .jw-modal-body {
+  border: 1px solid black;
+  max-height:80%;
+  overflow-y:scroll;
+}
+
+div.jw-modal{
+  margin: 0 auto !important;
+  width: 60%;
+}
+
+mc-consent form[default-theme="true"] {
+  overflow-y: auto;
+  max-height: 30%;
+}
+
+
+mc-consent form[default-theme="true"] div#WidgetComponent {
+  /* style rules here */
+  margin: 0;
+  font-family: "Mastercard Mark", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  color: #141413;
+  background: white;
+  background-color: #fff;
+  text-align: initial;
+}
+
+mc-consent form[default-theme="true"] div[identifier="consentBlock"]{
+  display: inline;
+}
+
+mc-consent form[default-theme="true"] span[identifier="astrict"]{
+  color:black;
+}
+
+div[identifier="consentBlock"] p{
+  display: inline;
+}
+
+mc-consent form[default-theme="true"] .mc-checkbox{
+  position: relative;
+  top: 2px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  border: 1px solid #000000;
+  border-radius: 2px;
+}
+
+mc-consent form[default-theme="true"] a{
+  text-decoration: underline;
+  color: #FD6F3A;
+  display: contents
+}
+/*.checkbox input{
+      position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.mc-control-indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background: #fff;
+    border: 1px solid #000000;
+    border-radius: 2px;
+}
+.checkbox input:checked ~ .mc-control-indicator:after {
+    display: block;
+}
+.checkbox .mc-control-indicator:after {
+    left: 4px;
+    top: 1px;
+    width: 3px;
+    height: 8px;
+    border: solid #5AC9AE;
+    border-width: 0px 2px 2px 0px;
+    transform: rotate(45deg);
+}
+.mc-control-indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.mc-error-msg{
+
+border:1px solid#da5559 ;
+
+display: block;
+
+}*/

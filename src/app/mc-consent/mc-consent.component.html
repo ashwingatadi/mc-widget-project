@@ -1,23 +1,30 @@
-<form #f='ngForm' [style.width]="width" [style.height]="height" locale="locale" [ngStyle]="widgetstylenew">
-  <div id="WidgetComponent" >
-    <label id="errorConcent" style="color:red;"></label>
-    <div *ngFor="let consent of consentList; let i = index">
-      <div class="checkbox">
-        <label>
-          <span style="color: red" *ngIf="consent.isRequired && consentList?.length != i+1">*</span>
-          <input *ngIf="consentList?.length != i+1 || consentList?.length == 1" name="consent{{i+1}}" type="checkbox" (ngModelChange)="onFilterChange($event)" required="{{consent.isRequired}}" ngModel #con/>
-          <div [innerHTML]="consent.linkData | safe: 'html'" (bindEvent) = "onBindEvent($event);"></div>
-          <!-- <div>{{consent | safeHtml}}</div> -->
-          <!-- <p>I agree to the <a title="Developer Program Agreement" target="_blank" (click)="_getLeagalContent('http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn')" xyz="abc">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described in the&nbsp;<a title="Privacy Policy" href="http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/cp-reg/pn " target="_blank">Mastercard Privacy Policy</a><br> </p> -->
-          <!-- <div>
-            <p>I agree to the
-              <a title="Developer Program Agreement" (click)="_getLeagalContent()" href="javascript:void(0);">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described
-              in the&nbsp;
-              <a title="Privacy Policy" href="https://stage.services.mastercard.com/dm/content/consentmanagement/legalcontent/dp/en-us/dp-reg/pn">Mastercard Privacy Policy</a>
-              <br>
-            </p>
-          </div> -->
-        </label>
+<form   #f='ngForm'  [attr.default-theme]="loadDefaultTheme" [style.width]="width" [style.height]="height" locale="locale">
+  <div  (focusout)="focusOutFunction($event)"  id="WidgetComponent" [ngStyle]="widgetstylenew">
+
+    <span [ngClass]="{'errorConcentBlock': consentErr}" identifier="errorConcentAlign" id="errorConcent">Please click on all the consents</span>
+    <div>
+      <div *ngFor="let consent of consentList; let i = index">
+        <div class="checkbox mc-consent-block">
+          <label>
+            <input style="margin-left:3px;margin-right:3px" class="mc-checkbox"
+                   *ngIf="consentList?.length != i+1 || consentList?.length == 1" name="consent{{i+1}}" type="checkbox"
+                   (ngModelChange)="onFilterChange($event)" required="{{consent.isRequired}}" ngModel #con/>
+            <span identifier="astrict" style="margin-right:3px" *ngIf="consent.isRequired && consentList?.length != i+1">*</span>
+			 </label>
+            <div identifier="consentBlock" *ngIf="consent.linkData" [innerHTML]="consent.linkData | safe: 'html'"
+                 (bindEvent)="onBindEvent($event);"></div>
+            <!-- <div>{{consent | safeHtml}}</div> -->
+            <!-- <p>I agree to the <a title="Developer Program Agreement" target="_blank" (click)="_getLeagalContent('http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn')" xyz="abc">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described in the&nbsp;<a title="Privacy Policy" href="http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/cp-reg/pn " target="_blank">Mastercard Privacy Policy</a><br> </p> -->
+            <!-- <div>
+              <p>I agree to the
+                <a title="Developer Program Agreement" (click)="_getLeagalContent()" href="javascript:void(0);">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described
+                in the&nbsp;
+                <a title="Privacy Policy" href="https://stage.services.mastercard.com/dm/content/consentmanagement/legalcontent/dp/en-us/dp-reg/pn">Mastercard Privacy Policy</a>
+                <br>
+              </p>
+            </div> -->
+         
+        </div>
       </div>
     </div>
     <!-- <button (click)="openModal('custom-modal-1')">Open Modal 1</button>

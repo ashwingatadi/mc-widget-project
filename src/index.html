@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -16,25 +16,33 @@
         callConsentAPIOnSubmit="true"
         ></mc-signup>
       </div>
-      <form action="#" method="post" name="sampleForm" id="sampleForm">
-          <div class="col-sm-6">
-            <input type="text" name="sampleName" required />
-          </div> 
       <div class="col-sm-6">
 
         <mc-consent
-          buttonIdForAPICall="outsideBtnId"
-          frmName="sampleForm"
-          callAPI = "true"
-          widgetclasses="div.disclaimer"
-		      widgetstyles="p.{color:red;font-size:14px}  h1#masterstyle.{color:yellow;background:red} h1.{font-size:13px}"
-		      widgetstyle='{line-height: 1.8;color: #777;margin-bottom: 2rem}'
-          width="300px"
-          height="400px"
+          button-id="outsideBtnId"
+          form-name="sampleForm"
+          call-api="true"
+          default-theme=""
+          widget-class=""
+		  widget-style="div.{color:blue}"
           locale="en-US"></mc-consent>
-        <button type="submit" id="outsideBtnId">Click Me</button>
+
+
+       <!-- <mc-consent
+          buttonIdForAPICall="outsideBtnId"
+          button-id="outsideBtnId"
+          form-name="sampleForm"
+          frmName="sampleForm"
+           callAPI = "true"
+          callAPI = "true"
+          widget-class=""
+          default-theme="false"
+          widget-style="div.{color:yellow},p.{background:red}"
+          locale="en-US"></mc-consent>-->
+
+
+          <!-- <button id="outsideBtnId">Click Me</button>  widgetstylenoreference='{line-height: 1.8;color: #777;margin-bottom: 2rem}'-->
       </div>
-    </form>
     </div>
 </body>
 </html>

@@ -6,7 +6,7 @@ import { ModalService } from '../services/modal.service';
     selector: 'jw-modal',
     template: 
         `<div class="jw-modal">
-            <div class="jw-modal-body">
+            <div model-dentifier="identifymodal" identifier="modalstyle" class="jw-modal-body">
                 <ng-content></ng-content>
             </div>
         </div>

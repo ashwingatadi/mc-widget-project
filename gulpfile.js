@@ -8,7 +8,7 @@ gulp.task('concat', function () {
       `${dir}/runtime.js`, 
       `${dir}/polyfills.js`,
       `${dir}/main.js`])
-    .pipe(concat('mc-bundle.js'))
+    .pipe(concat('mc-bundle.min.js'))
     .pipe(gulp.dest(`${dir}/`));
 });
 
