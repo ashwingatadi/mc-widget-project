@@ -33,6 +33,10 @@ mc-consent form[default-theme="true"] div#WidgetComponent {
   text-align: initial;
 }
 
+mc-consent form[default-theme="true"] .jw-modal-body{
+background: #fff !important;
+}
+
 mc-consent form[default-theme="true"] div[identifier="consentBlock"]{
   display: inline;
 }
@@ -61,7 +65,7 @@ mc-consent form[default-theme="true"] a{
   color: #FD6F3A;
   display: contents
 }
-/*.checkbox input{
+.checkbox input{
       position: absolute;
     z-index: -1;
     opacity: 0;
@@ -100,4 +104,4 @@ border:1px solid#da5559 ;
 
 display: block;
 
-}*/
+}

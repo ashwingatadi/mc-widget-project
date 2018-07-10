@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { ModalService } from '../services/modal.service';
 import { EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
+import {TranslateService} from '@ngx-translate/core';
 
 
 
@@ -57,6 +58,7 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
   consentList: any[][] = [[]];
   legalList: datatype[] = [];
   legalC: string = '';
+  private isParentFormSubmitted : boolean = false;
   public loadDefaultTheme;
   public loadDefaultThemeConfigured;
   @ViewChild('f') form: NgForm;
@@ -69,14 +71,17 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
     private apiService: ApiconnectService ,
     private modalService: ModalService,
     private renderer: Renderer2,
-    private configService: ConfigService) {
-
+    private configService: ConfigService,
+    private translate: TranslateService) {
+      
+      
       this.callAPI = elm.nativeElement.getAttribute('call-api');
       this.buttonIdForAPICall = elm.nativeElement.getAttribute('button-id');
       this.width = elm.nativeElement.getAttribute('width');
       this.height = elm.nativeElement.getAttribute('height');
       this.locale = elm.nativeElement.getAttribute('locale');
-
+      translate.setDefaultLang('en-US');
+      translate.use(this.locale);
       this.loadDefaultThemeConfigured = elm.nativeElement.getAttribute('default-theme');
       this.widgetclasses = elm.nativeElement.getAttribute('widget-class');
       this.widgetstyles = elm.nativeElement.getAttribute('widget-style');
@@ -341,7 +346,25 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
         
    
 }
+callValid(index) {
+var frmName = (<HTMLInputElement>document.getElementById(this.frmName));
+  if(frmName.checkValidity()) {
+    if(!this.form.valid) {
+      if(this.isParentFormSubmitted === true) {
+      var currConsent  = 'consent'+index;
+      console.log(this.form.controls[currConsent].valid);
+      console.log(typeof this.form.controls[currConsent].valid);
+      if(this.form.controls[currConsent].status === 'INVALID' && this.consentErr != false) {
+        return true;
+      }else{
+        return false;
+      }
+    }
+  }
+  }
+}
   onSubmitClick(event) {
+this.isParentFormSubmitted = true;
     //console.log(this.form.value);
     //console.log(this.frmName); //return false;
     //var frmName = document.forms[1];//.getElementById(this.frmName);

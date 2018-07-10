@@ -1,7 +1,9 @@
 <form   #f='ngForm'  [attr.default-theme]="loadDefaultTheme" [style.width]="width" [style.height]="height" locale="locale">
   <div  (focusout)="focusOutFunction($event)"  id="WidgetComponent" [ngStyle]="widgetstylenew">
 
-    <span [ngClass]="{'errorConcentBlock': consentErr}" identifier="errorConcentAlign" id="errorConcent">Please click on all the consents</span>
+    <span [ngClass]="{'errorConcentBlock': consentErr}" identifier="errorConcentAlign" id="errorConcent">
+      {{"Consent.consenterr" | translate}}
+    </span>
     <div>
       <div *ngFor="let consent of consentList; let i = index">
         <div class="checkbox mc-consent-block">
@@ -10,7 +12,8 @@
                    *ngIf="consentList?.length != i+1 || consentList?.length == 1" name="consent{{i+1}}" type="checkbox"
                    (ngModelChange)="onFilterChange($event)" required="{{consent.isRequired}}" ngModel #con/>
             <span identifier="astrict" style="margin-right:3px" *ngIf="consent.isRequired && consentList?.length != i+1">*</span>
-			 </label>
+			      <div *ngIf="consentList?.length != i+1 || consentList?.length == 1" class="mc-control-indicator" [ngClass]=" { 'mc-error-msg': callValid(i+1) }"></div>
+				</label>
             <div identifier="consentBlock" *ngIf="consent.linkData" [innerHTML]="consent.linkData | safe: 'html'"
                  (bindEvent)="onBindEvent($event);"></div>
             <!-- <div>{{consent | safeHtml}}</div> -->

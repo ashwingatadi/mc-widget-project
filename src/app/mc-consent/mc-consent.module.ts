@@ -5,11 +5,28 @@ import {FormsModule} from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
 import { ModalService } from '../services/modal.service';
 import {SafePipe} from './safe-html.pipe';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {TranslateModule,TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http); }
+
+
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
   ],
   declarations: [
     McConsentComponent,
