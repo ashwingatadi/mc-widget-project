@@ -11,8 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 
 
-
-interface datatype {
+interface datatype{
   data: string;
 }
 // @Pipe({ name: 'safeHtml'})
@@ -182,19 +181,19 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     var selectedElemDivAll = this.elm.nativeElement.getElementsByTagName('div');
     var selectedElemDiv = selectedElemDivAll[0];
 
-    if (this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined) { }
+    if(this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined){ }
     else { // validation check for attributes in component definition
       this.widgetclassesSplited = this.widgetclasses.split(',');
     }
 
-    if (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined) { }
+    if(this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined) { }
     else { // validation check for attributes in component definition
       this.widgetstylesSplited = this.widgetstyles.split(',');
-
+      
     }
 
     //  Class for individual component elements
-    if (this.widgetclassesSplited !== undefined) { // parent block validation
+    if(this.widgetclassesSplited !== undefined) { // parent block validation
       for (var i = 0; i < this.widgetclassesSplited.length; i++) {
 
         var idx = this.widgetclassesSplited[i].indexOf('.');
@@ -206,7 +205,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
           //var selectedElemNonDiv = currentWidget.querySelectorAll(element);
           var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element);
           if (selectedElemNonDiv.length === 1) { // if only 1 elem
-            this.renderer.addClass(selectedElemNonDiv['0'], elemClass);
+             this.renderer.addClass(selectedElemNonDiv['0'], elemClass);
             //selectedElemNonDiv['0'].classList.add(elemClass);
           }
           else {
@@ -220,9 +219,9 @@ export class McConsentComponent implements OnInit, AfterViewInit {
         } else { // add class to div parent  element
           this.renderer.addClass(selectedElemDiv, elemClass);
           var popupElementClass = document.querySelector("div[model-dentifier='identifymodal']");
-          if (popupElementClass) {
+          if(popupElementClass){
             this.renderer.addClass(popupElementClass, elemClass);
-          } else {
+          }else{
 
           }
         }
@@ -230,9 +229,9 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     } // parent block validation check end
 
     // Inline style for individual or entire component
-    if (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined) { } // validation check for attributes in component definition
+    if(this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined){ } // validation check for attributes in component definition
     else {
-      if (this.widgetstyles.charAt(0) === '{') {
+      if(this.widgetstyles.charAt(0) === '{'){
         this.widgetstylenew = this.parseToObject(this.widgetstyles);
       }
       else {
@@ -245,7 +244,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
           //refactor style
           var elemStyleSpilted = elemStyle.split(';');
 
-          if (element.indexOf('#') === -1) {
+          if(element.indexOf('#') === -1){
             var currentWidget = document.getElementById('WidgetComponent'); // get component html
             if (element !== 'div') {  // code for non divs
               var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element); // select non
@@ -253,9 +252,9 @@ export class McConsentComponent implements OnInit, AfterViewInit {
               if (selectedElemNonDiv.length === 1) { // if only 1 elem
                 elemStyleSpilted.forEach(item => {
                   var colunIdx = item.indexOf(':');
-                  var stylepop = item.substring(0, colunIdx); //beforecolun
+                  var stylepop  = item.substring(0, colunIdx); //beforecolun
                   var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
-                  this.renderer.setStyle(selectedElemNonDiv['0'], stylepop, styleval);
+                  this.renderer.setStyle(selectedElemNonDiv['0'], stylepop , styleval );
                 });
                 //this.renderer.setProperty(selectedElemNonDiv['0'], 'style', elemStyle);
                 //selectedElemNonDiv['0'].setAttribute("style", elemStyle);
@@ -266,49 +265,49 @@ export class McConsentComponent implements OnInit, AfterViewInit {
 
                   elemStyleSpilted.forEach(item => {
                     var colunIdx = item.indexOf(':');
-                    var stylepop = item.substring(0, colunIdx); //beforecolun
+                    var stylepop  = item.substring(0, colunIdx); //beforecolun
                     var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
-                    this.renderer.setStyle(currIdx, stylepop, styleval);
+                    this.renderer.setStyle(currIdx, stylepop , styleval );
                   });
                   //this.renderer.setProperty(currIdx, 'style', elemStyle);
                   //currIdx.setAttribute("style",elemStyle);
                 }
               }
-            } else if (element === 'div') { // add style to parent div
+            } else if(element === 'div') { // add style to parent div
               this.renderer.setProperty(selectedElemDiv, 'style', elemStyle);
               var popupElementStyle = document.querySelector("div[model-dentifier='identifymodal']");
-              if (popupElementStyle) {
-                this.renderer.setProperty(popupElementStyle, 'style', elemStyle);
-              } else {
+              if(popupElementStyle){
+                this.renderer.setProperty(popupElementStyle,'style',elemStyle);
+              }else{
 
               }
               //selectedElemDiv.setAttribute("style",elemStyle)
             }
-          } else {
+          }else{
             var hashIdx = element.indexOf('#');
             var beforeHashElem = element.substring(0, hashIdx);
             var afterHashElemIdentifier = element.substring(hashIdx + 1, element.length);
 
-            var catchIdentifier = '' + beforeHashElem + '[identifier=' + afterHashElemIdentifier + ']';
+            var catchIdentifier = '' + beforeHashElem + '[identifier=' + afterHashElemIdentifier + ']' ;
 
             var elemFromDom = document.querySelectorAll(catchIdentifier);
 
-            if (elemFromDom.length === 1) {
+            if(elemFromDom.length === 1){
               elemStyleSpilted.forEach(item => {
                 var colunIdx = item.indexOf(':');
-                var stylepop = item.substring(0, colunIdx); //beforecolun
+                var stylepop  = item.substring(0, colunIdx); //beforecolun
                 var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
-                this.renderer.setStyle(elemFromDom['0'], stylepop, styleval);
+                this.renderer.setStyle(elemFromDom['0'], stylepop , styleval );
               });
               //this.renderer.setStyle(this.elRef.nativeElement, 'color', 'red');
               //this.renderer.setProperty(elemFromDom['0'], 'style', elemStyle);
-            } else {
-              for (var e = 0; e < elemFromDom.length; e++) {
-                elemStyleSpilted.forEach(itemy => {
+            }else{
+              for(var e=0;e<elemFromDom.length;e++){
+                  elemStyleSpilted.forEach(itemy => {
                   var colunIdx = itemy.indexOf(':');
-                  var stylepop = itemy.substring(0, colunIdx); //beforecolun
+                  var stylepop  = itemy.substring(0, colunIdx); //beforecolun
                   var styleval = itemy.substring(colunIdx + 1, itemy.length); //aftercolun
-                  this.renderer.setStyle(elemFromDom[e], stylepop, styleval);
+                  this.renderer.setStyle(elemFromDom[e], stylepop , styleval );
                 });
               }
             }
@@ -318,28 +317,29 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     } // end of 1st main else  loop
   }
 
-  ngAfterContentChecked() {
+  ngAfterContentChecked(){
     this.renderStyle();
     var anchors = this.elm.nativeElement.getElementsByTagName('a');
     //console.log(anchors);
-    if (anchors.length > 0 && !this.listenerAdded) {
-      this.listenerAdded = true;
-      for (var i = 0; i < anchors.length; i++) {
-        let href: string = anchors[i].href;;
-        let urlArr: string[] = href.substring(href.indexOf('legalcontent'), href.length).split('/');
-        console.log(anchors[i].href);
-        if (urlArr[0].toLowerCase() == 'legalcontent' && urlArr[1].toLowerCase() == this.sc && urlArr[3].toLowerCase() == this.sfc) {
-          anchors[i].removeAttribute("href");
-          //anchors[i].setAttribute("required","true");
-          anchors[i].addEventListener('click', this.anchorevent.bind(this, href));
+    if(anchors.length >0 && !this.listenerAdded)
+      {
+        this.listenerAdded = true;
+        for(var i=0;i<anchors.length; i++){
+            let href:string = anchors[i].href;;
+            let urlArr: string[] = href.substring(href.indexOf('legalcontent'), href.length).split('/');
+            console.log(anchors[i].href);
+            if(urlArr[0].toLowerCase() == 'legalcontent' && urlArr[1].toLowerCase() == this.sc &&  urlArr[3].toLowerCase() == this.sfc){
+              anchors[i].removeAttribute("href");
+              //anchors[i].setAttribute("required","true");
+              anchors[i].addEventListener('click',this.anchorevent.bind(this, href));  
+            }
+          }
         }
-      }
-    }
 
-    if ((this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined) && (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined)) {
+    if((this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined) && (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined)){
       this.loadDefaultTheme = true;
-    } else { }
-    // we have to use the href property of the anchor to manipulate the click event.
+    }else{}
+          // we have to use the href property of the anchor to manipulate the click event.
   }
 
   anchorevent = function (url: string) {
@@ -384,7 +384,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       this.consentErr = false;
       //console.log(this.form);
       //document.getElementById("errorConcent").style.color = "black";
-      if (!this.form.valid) {
+      if(!this.form.valid) {
         //document.getElementById("")
         this.consentErr = true;
         //document.getElementById("errorConcent").style.color = "red";
@@ -417,7 +417,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
 
       this.consentErr = false;
       //document.getElementById("errorConcent").style.color = "black";
-      if (!this.form.valid) {
+      if(!this.form.valid) {
         //document.getElementById("")
         this.consentErr = true;
         //document.getElementById("errorConcent").style.color = "red";
@@ -446,7 +446,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
 
     //this.onSubmitClick(event);
   }
-  parseToObject(str: string) {
+  parseToObject(str: string){
     str = str.replace(/[{()}]/g, '');
 
     let splStr: string[] = str.split(';');
@@ -456,7 +456,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     let frmtedStr: string = '';
 
     splStr.forEach(str => {
-      if (str) {
+      if(str){
         let stlSpl = str.split(":");
         keys.push(stlSpl[0]);
         vals.push(stlSpl[1]);
@@ -465,9 +465,9 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     });
 
     frmtedStr = frmtedStr + "{";
-    for (let i = 0; i < num; i++) {
+    for(let i =0; i<num; i++){
       frmtedStr = frmtedStr + "\"" + keys[i].trim() + "\":\"" + vals[i].trim() + "\"";
-      if (i != num - 1) {
+      if(i!=num-1){
         frmtedStr = frmtedStr + ",";
       }
     }

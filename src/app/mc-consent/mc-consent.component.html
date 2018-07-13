@@ -1,8 +1,8 @@
 <form   #f='ngForm'  [attr.default-theme]="loadDefaultTheme" [style.width]="width" [style.height]="height" locale="locale">
   <div  (focusout)="focusOutFunction($event)"  id="WidgetComponent" [ngStyle]="widgetstylenew">
 
-    <span [ngClass]="{'errorConcentBlock': consentErr}" identifier="errorConcentAlign" id="errorConcent">
-      {{"Consent.consenterr" | translate}}
+    <span [ngClass]="{'errorConcentBlock': consentErr}" identifier="errorConcentAlign" id="errorConcent" i18n>
+      Please select all consents
     </span>
     <div>
       <div *ngFor="let consent of consentList; let i = index">
