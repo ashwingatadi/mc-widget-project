@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="94b23949f04529e2d8eb69062f6181ce9a2fd612" datatype="html">
+        <source>
+      Please select all consents
+    </source>
+     <target>
+          Veuillez sélectionner tous les consentements
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/mc-consent/mc-consent.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
