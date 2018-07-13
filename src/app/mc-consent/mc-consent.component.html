@@ -9,8 +9,8 @@
         <div class="checkbox mc-consent-block">
           <label>
             <input style="margin-left:3px;margin-right:3px" class="mc-checkbox"
-                   *ngIf="consentList?.length != i+1 || consentList?.length == 1" name="consent{{i+1}}" type="checkbox"
-                   (ngModelChange)="onFilterChange($event)" required="{{consent.isRequired}}" ngModel #con/>
+                   *ngIf="consentList?.length != i+1 || consentList?.length == 1" id="consent{{i+1}}" name="consent{{i+1}}" type="checkbox"
+                   (ngModelChange)="onFilterChange($event, consent, i)" required="{{consent.isRequired}}" ngModel #con/>
             <span identifier="astrict" style="margin-right:3px" *ngIf="consent.isRequired && consentList?.length != i+1">*</span>
 			      <div *ngIf="consentList?.length != i+1 || consentList?.length == 1" class="mc-control-indicator" [ngClass]=" { 'mc-error-msg': callValid(i+1) }"></div>
 				</label>

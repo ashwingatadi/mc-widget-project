@@ -1,10 +1,16 @@
 {
     "consent":{
-        "serviceCode": "dp",
-        "serviceFunctionCode": "dp-reg"
-            
-    },
-    "userCategoryCode":{
-        "mandatory": ["em", "tc"]
+        "inboundapi":{
+            "serviceCode":"pc",
+            "serviceFunctionCode":"pc-reg"
+        },
+        "consentlanguage":{
+            "userCategoryCode":{
+                "mandatory": ["em", "tc", "tu"]
+            }
+        },
+        "legalContent":{
+            "version":"1.0"
+        }
     }
 }

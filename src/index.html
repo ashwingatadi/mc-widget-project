@@ -17,17 +17,18 @@
         ></mc-signup>
       </div>
 	  <form name="sampleForm" id="sampleForm" method="post" action="#">
-	  <input type="text" name="fn" required>
+	  <input type="text" name="username" id="username" required>
       <div class="col-sm-6">
 
         <mc-consent
           button-id="outsideBtnId"
           form-name="sampleForm"
+          username-id="username"
           call-api="true"
           default-theme=""
           widget-class=""
 		      widget-stylex="div.{color:blue}"
-          locale="fr-ca"></mc-consent>
+          locale="en-us"></mc-consent>
 
 
        <!-- <mc-consent

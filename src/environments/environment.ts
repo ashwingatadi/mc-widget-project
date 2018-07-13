@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://stage.services.mastercard.com/dm/content/consentmanagement/'
+  //baseUrl: 'https://stage.services.mastercard.com/dm/content/consentmanagement/'
+  baseUrl: 'http://localhost:8088/WidgetDemo/consent/1.0.0/'
 };
 
 /*

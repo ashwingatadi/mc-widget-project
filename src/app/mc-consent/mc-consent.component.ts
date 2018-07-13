@@ -4,13 +4,15 @@ import { ApiconnectService } from '../services/apiconnect.service';
 import { NgForm } from '@angular/forms';
 
 import { ModalService } from '../services/modal.service';
+import { LoggingService } from '../services/logging.service';
 import { EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
-interface datatype{
+
+interface datatype {
   data: string;
 }
 // @Pipe({ name: 'safeHtml'})
@@ -23,27 +25,25 @@ interface datatype{
 @Component({
   selector: 'mc-consent',
   templateUrl: './mc-consent.component.html',
-  styleUrls: ['./mc-consent.component.css','../modal/modal.component.less'],
+  styleUrls: ['./mc-consent.component.css', '../modal/modal.component.less'],
   encapsulation: ViewEncapsulation.None
 
 })
-export class McConsentComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class McConsentComponent implements OnInit, AfterViewInit {
   private listenerAdded: boolean = false;
   @Input() callAPI: boolean = false;
   @Input() buttonIdForAPICall: string;
+  @Input() userIdForCreateConsent: string;
   @Input() frmName: string;
   @Input() width: string;
   @Input() height: string;
   @Input() mastercardtheme;
-  @Output() bindEvent: EventEmitter<{aTag: any}>= new EventEmitter();
+  @Output() bindEvent: EventEmitter<{ aTag: any }> = new EventEmitter();
   locale: string;
-  filter : boolean = false;
+  filter: boolean = false;
   private sc: string;
   private sfc: string;
   private userCategoryCode: string;
-
-
-  private checkAfterInitFlag: boolean = false;
   consentElement: HTMLElement;
 
   url: string;
@@ -58,7 +58,8 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
   consentList: any[][] = [[]];
   legalList: datatype[] = [];
   legalC: string = '';
-  private isParentFormSubmitted : boolean = false;
+  userSelectedConsent: any[][] = [[]];
+  private isParentFormSubmitted: boolean = false;
   public loadDefaultTheme;
   public loadDefaultThemeConfigured;
   @ViewChild('f') form: NgForm;
@@ -68,27 +69,29 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
 
   constructor(
     private elm: ElementRef,
-    private apiService: ApiconnectService ,
+    private apiService: ApiconnectService,
     private modalService: ModalService,
     private renderer: Renderer2,
     private configService: ConfigService,
+    private LoggingService: LoggingService,
     private translate: TranslateService) {
-      
-      
-      this.callAPI = elm.nativeElement.getAttribute('call-api');
-      this.buttonIdForAPICall = elm.nativeElement.getAttribute('button-id');
-      this.width = elm.nativeElement.getAttribute('width');
-      this.height = elm.nativeElement.getAttribute('height');
-      this.locale = elm.nativeElement.getAttribute('locale');
-      translate.setDefaultLang('en-US');
-      translate.use(this.locale);
-      this.loadDefaultThemeConfigured = elm.nativeElement.getAttribute('default-theme');
-      this.widgetclasses = elm.nativeElement.getAttribute('widget-class');
-      this.widgetstyles = elm.nativeElement.getAttribute('widget-style');
-      if(this.loadDefaultThemeConfigured === 'true'){
-        this.widgetclasses = '';
-        this.widgetstyles = '';
-      }else{}
+
+
+    this.callAPI = elm.nativeElement.getAttribute('call-api');
+    this.buttonIdForAPICall = elm.nativeElement.getAttribute('button-id');
+    this.userIdForCreateConsent = elm.nativeElement.getAttribute('username-id');
+    this.width = elm.nativeElement.getAttribute('width');
+    this.height = elm.nativeElement.getAttribute('height');
+    this.locale = elm.nativeElement.getAttribute('locale');
+    translate.setDefaultLang('en-US');
+    translate.use(this.locale);
+    this.loadDefaultThemeConfigured = elm.nativeElement.getAttribute('default-theme');
+    this.widgetclasses = elm.nativeElement.getAttribute('widget-class');
+    this.widgetstyles = elm.nativeElement.getAttribute('widget-style');
+    if (this.loadDefaultThemeConfigured === 'true') {
+      this.widgetclasses = '';
+      this.widgetstyles = '';
+    } else { }
     /*if(this.loadDefaultTheme === 'true'){
       this.widgetclasses = '';
       this.widgetstyles = '';
@@ -97,7 +100,7 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
       this.widgetclasses = elm.nativeElement.getAttribute('widget-class');
       this.widgetstyles = elm.nativeElement.getAttribute('widget-style');
     }*/
-      this.frmName = elm.nativeElement.getAttribute('form-name');
+    this.frmName = elm.nativeElement.getAttribute('form-name');
     /*if (this.widgetstyle !== null || this.widgetstyle !== undefined || this.widgetstyle !== '') {
       console.log(this.widgetstyle);
       console.log(' type of this.widgetstyle');
@@ -132,8 +135,8 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
   ngOnInit() {
     this.configService.getConfigData().subscribe(confData => {
       var jsonData = JSON.parse(confData._body);
-      var serviceCode = jsonData.consent.serviceCode;
-      var serviceFunctionCode = jsonData.consent.serviceFunctionCode;
+      var serviceCode = jsonData.consent.inboundapi.serviceCode;
+      var serviceFunctionCode = jsonData.consent.inboundapi.serviceFunctionCode;
       //this.loadDefaultTheme = jsonData.selectTheme.loadDefaultTheme;
 
       this.sc = serviceCode;
@@ -144,26 +147,30 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
       var completeUrl = url + `${serviceCode}/${this.locale}/${serviceFunctionCode}`;
       this.apiService.getResponse(completeUrl).subscribe(response => {
         response.forEach((item, index) => {
-          
+
           this.consentList[index] = [];
           // var s = item.consentUseData[0].consentData.data;
-           this.consentList[index]['linkData'] = item.consentUseData[0].consentData.data;
-           var apiUserCategoryCode = item.consentUseData[0].useCategory.useCategoryCode;
-           this.consentList[index]['isRequired'] = jsonData.userCategoryCode.mandatory.includes(apiUserCategoryCode);
+          this.consentList[index]['linkData'] = item.consentUseData[0].consentData.data;
+          var apiUserCategoryCode = item.consentUseData[0].useCategory.useCategoryCode;
+          this.consentList[index]['isRequired'] = jsonData.consent.consentlanguage.userCategoryCode.mandatory.includes(apiUserCategoryCode);
+          this.consentList[index]['uuid'] = item.uuid;
+          this.consentList[index]['currentVersion'] = item.currentVersion;
+          this.consentList[index]['serviceCode'] = item.serviceCode;
+          this.consentList[index]['serviceFunctionCode'] = item.serviceFunctionCode;
           //console.log(jsonData.userCategoryCode.mandatory.includes(apiUserCategoryCode));
-          
+
           //this.consentList.push(htmlObject.innerHTML.toString());
         });
       })
-    }) 
-    console.log(this.consentList);
+    })
+    //console.log(this.consentList);
   }
 
-  onBindEvent(eData){
+  onBindEvent(eData) {
     //debugger;
     //console.log(eData);
   }
-  
+
   ngAfterViewInit() {
     if (this.callAPI) {
       var element = document.getElementById(this.buttonIdForAPICall);
@@ -171,23 +178,23 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
     }
   }
 
-  renderStyle(){
+  renderStyle() {
     var selectedElemDivAll = this.elm.nativeElement.getElementsByTagName('div');
     var selectedElemDiv = selectedElemDivAll[0];
 
-    if(this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined){ }
+    if (this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined) { }
     else { // validation check for attributes in component definition
       this.widgetclassesSplited = this.widgetclasses.split(',');
     }
 
-    if(this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined) { }
+    if (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined) { }
     else { // validation check for attributes in component definition
       this.widgetstylesSplited = this.widgetstyles.split(',');
-      
+
     }
 
     //  Class for individual component elements
-    if(this.widgetclassesSplited !== undefined) { // parent block validation
+    if (this.widgetclassesSplited !== undefined) { // parent block validation
       for (var i = 0; i < this.widgetclassesSplited.length; i++) {
 
         var idx = this.widgetclassesSplited[i].indexOf('.');
@@ -199,7 +206,7 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
           //var selectedElemNonDiv = currentWidget.querySelectorAll(element);
           var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element);
           if (selectedElemNonDiv.length === 1) { // if only 1 elem
-             this.renderer.addClass(selectedElemNonDiv['0'], elemClass);
+            this.renderer.addClass(selectedElemNonDiv['0'], elemClass);
             //selectedElemNonDiv['0'].classList.add(elemClass);
           }
           else {
@@ -213,9 +220,9 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
         } else { // add class to div parent  element
           this.renderer.addClass(selectedElemDiv, elemClass);
           var popupElementClass = document.querySelector("div[model-dentifier='identifymodal']");
-          if(popupElementClass){
+          if (popupElementClass) {
             this.renderer.addClass(popupElementClass, elemClass);
-          }else{
+          } else {
 
           }
         }
@@ -223,9 +230,9 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
     } // parent block validation check end
 
     // Inline style for individual or entire component
-    if(this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined){ } // validation check for attributes in component definition
+    if (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined) { } // validation check for attributes in component definition
     else {
-      if(this.widgetstyles.charAt(0) === '{'){
+      if (this.widgetstyles.charAt(0) === '{') {
         this.widgetstylenew = this.parseToObject(this.widgetstyles);
       }
       else {
@@ -238,7 +245,7 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
           //refactor style
           var elemStyleSpilted = elemStyle.split(';');
 
-          if(element.indexOf('#') === -1){
+          if (element.indexOf('#') === -1) {
             var currentWidget = document.getElementById('WidgetComponent'); // get component html
             if (element !== 'div') {  // code for non divs
               var selectedElemNonDiv = this.elm.nativeElement.getElementsByTagName(element); // select non
@@ -246,9 +253,9 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
               if (selectedElemNonDiv.length === 1) { // if only 1 elem
                 elemStyleSpilted.forEach(item => {
                   var colunIdx = item.indexOf(':');
-                  var stylepop  = item.substring(0, colunIdx); //beforecolun
+                  var stylepop = item.substring(0, colunIdx); //beforecolun
                   var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
-                  this.renderer.setStyle(selectedElemNonDiv['0'], stylepop , styleval );
+                  this.renderer.setStyle(selectedElemNonDiv['0'], stylepop, styleval);
                 });
                 //this.renderer.setProperty(selectedElemNonDiv['0'], 'style', elemStyle);
                 //selectedElemNonDiv['0'].setAttribute("style", elemStyle);
@@ -259,49 +266,49 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
 
                   elemStyleSpilted.forEach(item => {
                     var colunIdx = item.indexOf(':');
-                    var stylepop  = item.substring(0, colunIdx); //beforecolun
+                    var stylepop = item.substring(0, colunIdx); //beforecolun
                     var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
-                    this.renderer.setStyle(currIdx, stylepop , styleval );
+                    this.renderer.setStyle(currIdx, stylepop, styleval);
                   });
                   //this.renderer.setProperty(currIdx, 'style', elemStyle);
                   //currIdx.setAttribute("style",elemStyle);
                 }
               }
-            } else if(element === 'div') { // add style to parent div
+            } else if (element === 'div') { // add style to parent div
               this.renderer.setProperty(selectedElemDiv, 'style', elemStyle);
               var popupElementStyle = document.querySelector("div[model-dentifier='identifymodal']");
-              if(popupElementStyle){
-                this.renderer.setProperty(popupElementStyle,'style',elemStyle);
-              }else{
+              if (popupElementStyle) {
+                this.renderer.setProperty(popupElementStyle, 'style', elemStyle);
+              } else {
 
               }
               //selectedElemDiv.setAttribute("style",elemStyle)
             }
-          }else{
+          } else {
             var hashIdx = element.indexOf('#');
             var beforeHashElem = element.substring(0, hashIdx);
             var afterHashElemIdentifier = element.substring(hashIdx + 1, element.length);
 
-            var catchIdentifier = '' + beforeHashElem + '[identifier=' + afterHashElemIdentifier + ']' ;
+            var catchIdentifier = '' + beforeHashElem + '[identifier=' + afterHashElemIdentifier + ']';
 
             var elemFromDom = document.querySelectorAll(catchIdentifier);
 
-            if(elemFromDom.length === 1){
+            if (elemFromDom.length === 1) {
               elemStyleSpilted.forEach(item => {
                 var colunIdx = item.indexOf(':');
-                var stylepop  = item.substring(0, colunIdx); //beforecolun
+                var stylepop = item.substring(0, colunIdx); //beforecolun
                 var styleval = item.substring(colunIdx + 1, item.length); //aftercolun
-                this.renderer.setStyle(elemFromDom['0'], stylepop , styleval );
+                this.renderer.setStyle(elemFromDom['0'], stylepop, styleval);
               });
               //this.renderer.setStyle(this.elRef.nativeElement, 'color', 'red');
               //this.renderer.setProperty(elemFromDom['0'], 'style', elemStyle);
-            }else{
-              for(var e=0;e<elemFromDom.length;e++){
-                  elemStyleSpilted.forEach(itemy => {
+            } else {
+              for (var e = 0; e < elemFromDom.length; e++) {
+                elemStyleSpilted.forEach(itemy => {
                   var colunIdx = itemy.indexOf(':');
-                  var stylepop  = itemy.substring(0, colunIdx); //beforecolun
+                  var stylepop = itemy.substring(0, colunIdx); //beforecolun
                   var styleval = itemy.substring(colunIdx + 1, itemy.length); //aftercolun
-                  this.renderer.setStyle(elemFromDom[e], stylepop , styleval );
+                  this.renderer.setStyle(elemFromDom[e], stylepop, styleval);
                 });
               }
             }
@@ -311,114 +318,135 @@ export class McConsentComponent implements OnInit, AfterViewInit, AfterViewCheck
     } // end of 1st main else  loop
   }
 
-  ngAfterContentChecked(){
+  ngAfterContentChecked() {
     this.renderStyle();
     var anchors = this.elm.nativeElement.getElementsByTagName('a');
     //console.log(anchors);
-    if(anchors.length >0 && !this.listenerAdded)
-      {
-        this.listenerAdded = true;
-        for(var i=0;i<anchors.length; i++){
-            let href:string = anchors[i].href;;
-            let urlArr: string[] = href.substring(href.indexOf('legalcontent'), href.length).split('/');
-            console.log(anchors[i].href);
-            if(urlArr[0].toLowerCase() == 'legalcontent' && urlArr[1].toLowerCase() == this.sc &&  urlArr[3].toLowerCase() == this.sfc){
-              anchors[i].removeAttribute("href");
-              //anchors[i].setAttribute("required","true");
-              anchors[i].addEventListener('click',this.anchorevent.bind(this, href));  
-            }
+    if (anchors.length > 0 && !this.listenerAdded) {
+      this.listenerAdded = true;
+      for (var i = 0; i < anchors.length; i++) {
+        let href: string = anchors[i].href;;
+        let urlArr: string[] = href.substring(href.indexOf('legalcontent'), href.length).split('/');
+        console.log(anchors[i].href);
+        if (urlArr[0].toLowerCase() == 'legalcontent' && urlArr[1].toLowerCase() == this.sc && urlArr[3].toLowerCase() == this.sfc) {
+          anchors[i].removeAttribute("href");
+          //anchors[i].setAttribute("required","true");
+          anchors[i].addEventListener('click', this.anchorevent.bind(this, href));
+        }
+      }
+    }
+
+    if ((this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined) && (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined)) {
+      this.loadDefaultTheme = true;
+    } else { }
+    // we have to use the href property of the anchor to manipulate the click event.
+  }
+
+  anchorevent = function (url: string) {
+
+    var completeUrl = url;
+    this.apiService.getResponse(completeUrl).subscribe(response => {
+      this.legalList.push(response.consentUseData[0].consentData.data);
+    })
+    this.openModal('custom-modal-1');
+
+
+  }
+  callValid(index) {
+    var frmName = (<HTMLInputElement>document.getElementById(this.frmName));
+    if (frmName.checkValidity()) {
+      if (!this.form.valid) {
+        if (this.isParentFormSubmitted === true) {
+          var currConsent = 'consent' + index;
+          //console.log(this.form.controls[currConsent].valid);
+          //console.log(typeof this.form.controls[currConsent].valid);
+          if (this.form.controls[currConsent].status === 'INVALID' && this.consentErr != false) {
+            return true;
+          } else {
+            return false;
           }
         }
-
-    if((this.widgetclasses === '' || this.widgetclasses === null || this.widgetclasses === undefined) && (this.widgetstyles === '' || this.widgetstyles === null || this.widgetstyles === undefined)){
-      this.loadDefaultTheme = true;
-    }else{}
-          // we have to use the href property of the anchor to manipulate the click event.
-  }
- 
-  anchorevent = function(url: string) {
-        
-        var completeUrl = url;
-        this.apiService.getResponse(completeUrl).subscribe(response => {
-         this.legalList.push(response.consentUseData[0].consentData.data);
-        })
-        this.openModal('custom-modal-1');
-        
-   
-}
-callValid(index) {
-var frmName = (<HTMLInputElement>document.getElementById(this.frmName));
-  if(frmName.checkValidity()) {
-    if(!this.form.valid) {
-      if(this.isParentFormSubmitted === true) {
-      var currConsent  = 'consent'+index;
-      console.log(this.form.controls[currConsent].valid);
-      console.log(typeof this.form.controls[currConsent].valid);
-      if(this.form.controls[currConsent].status === 'INVALID' && this.consentErr != false) {
-        return true;
-      }else{
-        return false;
       }
     }
   }
-  }
-}
   onSubmitClick(event) {
-this.isParentFormSubmitted = true;
-    //console.log(this.form.value);
+    this.isParentFormSubmitted = true;
+    //console.log(event);
     //console.log(this.frmName); //return false;
     //var frmName = document.forms[1];//.getElementById(this.frmName);
-    
+
     var frmName = (<HTMLInputElement>document.getElementById(this.frmName));
     //var frmName = document.forms[this.frmName];
-    
-    console.log(frmName);
-    console.log(frmName.checkValidity() + " checking checkValidity");
-    if(frmName.checkValidity()) {
+
+    //console.log(frmName);
+    //console.log(frmName.checkValidity() + " checking checkValidity");
+    if (frmName.checkValidity()) {
       this.consentErr = false;
       //console.log(this.form);
       //document.getElementById("errorConcent").style.color = "black";
-      if(!this.form.valid) {
+      if (!this.form.valid) {
         //document.getElementById("")
         this.consentErr = true;
         //document.getElementById("errorConcent").style.color = "red";
         event.preventDefault();
         event.stopPropagation();
-         
-       } 
-     }
+
+      } else {
+        //event.preventDefault();
+        //event.stopPropagation();
+
+        const userIdForCreateConsent = <HTMLInputElement>document.getElementById(this.userIdForCreateConsent);
+        this.LoggingService.printLog(userIdForCreateConsent.value);
+        this.userSelectedConsent.forEach((item, index)=> {
+          console.log(item);
+        })
+        
+
+
+      }
+
+      //alert('in')
+    }
   }
-  focusOutFunction(event: any){
-    console.log('focusout');
+  focusOutFunction(event: any) {
+    //console.log('focusout');
     //this.onSubmitClick(event);
     var frmName = (<HTMLInputElement>document.getElementById(this.frmName));
-    console.log(frmName.checkValidity() + " checkValidity")
-    if(frmName.checkValidity()) {
+    //console.log(frmName.checkValidity() + " checkValidity")
+    if (frmName.checkValidity()) {
 
       this.consentErr = false;
       //document.getElementById("errorConcent").style.color = "black";
-      if(!this.form.valid) {
+      if (!this.form.valid) {
         //document.getElementById("")
         this.consentErr = true;
         //document.getElementById("errorConcent").style.color = "red";
         event.preventDefault();
         event.stopPropagation();
-         
-       } 
-     }
-    
-  }
-  onFilterChange(eve: any) {
-    console.log('checkboxclick');
-    this.consentErr = false;
-    // this.filter = !this.filter;
-    // if(this.filter == false) {
-    //document.getElementById("errorConcent").style.color = "black";
 
-   // }
+      }
+    }
+
+  }
+  onFilterChange(eve: any, data: any[], index: number) {
+
+    this.consentErr = false;
+    this.filter = !this.filter;
+    if (eve == false) {
+      delete this.userSelectedConsent[index];
+      //this.userSelectedConsent[index] = [];
+      //this.LoggingService.printLog("pop action");
+
+    } else {
+      this.userSelectedConsent[index] = [];
+      this.userSelectedConsent[index] = data;
+      //this.LoggingService.printLog("push action");
+    }
+
+
     //this.onSubmitClick(event);
   }
-  parseToObject(str: string){
+  parseToObject(str: string) {
     str = str.replace(/[{()}]/g, '');
 
     let splStr: string[] = str.split(';');
@@ -428,7 +456,7 @@ this.isParentFormSubmitted = true;
     let frmtedStr: string = '';
 
     splStr.forEach(str => {
-      if(str){
+      if (str) {
         let stlSpl = str.split(":");
         keys.push(stlSpl[0]);
         vals.push(stlSpl[1]);
@@ -437,9 +465,9 @@ this.isParentFormSubmitted = true;
     });
 
     frmtedStr = frmtedStr + "{";
-    for(let i =0; i<num; i++){
+    for (let i = 0; i < num; i++) {
       frmtedStr = frmtedStr + "\"" + keys[i].trim() + "\":\"" + vals[i].trim() + "\"";
-      if(i!=num-1){
+      if (i != num - 1) {
         frmtedStr = frmtedStr + ",";
       }
     }
@@ -449,48 +477,11 @@ this.isParentFormSubmitted = true;
   }
   openModal(id: string) {
     //console.log(id)
-      this.modalService.open(id);
+    this.modalService.open(id);
   }
 
   closeModal(id: string) {
-      this.modalService.close(id);
-  }
-
-  ngAfterViewChecked(){
-    // if(this.checkAfterInitFlag){
-    //   //debugger;
-      
-    //   this.consentElement.removeAttribute('href');
-    //   this.consentElement.addEventListener('click', this._getLeagalContent.bind(this, this.url));
-    //   console.log(this.consentElement);
-    //   this.checkAfterInitFlag = false;
-    // }
-
-    if(this.checkAfterInitFlag){
-      //debugger;
-      
-      this.consentElement.removeAttribute('href');
-      this.consentElement.addEventListener('click', this._getLeagalContent.bind(this, this.url));
-      //console.log(this.consentElement);
-      this.checkAfterInitFlag = false;
-    }
-    
-  }
-
-  _getLeagalContent(url: string){
-    console.log(url);
-    //console.log('reached')
-    //var completeUrl = 'https://stage.services.mastercard.com/dm/content/consentmanagement/legalcontent/mccom/en-us/mccom-sl/pn';
-    var completeUrl = 'http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn';//url; 
-    this.apiService.getResponse(completeUrl).subscribe(response => {
-      // response.forEach(item => {
-      //   this.legalList.push(item.consentUseData[0].consentData.data);
-      // });
-
-       this.legalList.push(response.consentUseData[0].consentData.data);
-      // this.legalC = response.consentUseData[0].consentData.data
-    })
-    this.openModal('custom-modal-1');
+    this.modalService.close(id);
   }
 }
 
