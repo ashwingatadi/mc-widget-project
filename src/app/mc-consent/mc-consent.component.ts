@@ -82,8 +82,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     this.width = elm.nativeElement.getAttribute('width');
     this.height = elm.nativeElement.getAttribute('height');
     this.locale = elm.nativeElement.getAttribute('locale');
-    translate.setDefaultLang('en-US');
-    translate.use(this.locale);
+    //translate.setDefaultLang('en-US');
+    //translate.use(this.locale);
     this.loadDefaultThemeConfigured = elm.nativeElement.getAttribute('default-theme');
     this.widgetclasses = elm.nativeElement.getAttribute('widget-class');
     this.widgetstyles = elm.nativeElement.getAttribute('widget-style');
@@ -439,6 +439,41 @@ export class McConsentComponent implements OnInit, AfterViewInit {
 
     } else {
       this.userSelectedConsent[index] = [];
+      var _jsonObj = [];
+      const _consentText = data['linkData'];
+      var htmlObject = document.createElement('div');
+          htmlObject.innerHTML = _consentText;
+          const consentLinks = htmlObject.getElementsByTagName("a")
+          if(consentLinks.length > 0) {
+            for(var i = 0; i< consentLinks.length; i++) {
+              let linkParameters = consentLinks[i].href;
+              if(linkParameters !== undefined) {
+              
+                  this.LoggingService.printLog(linkParameters);
+                  this.configService.getConfigData().subscribe(confData => {
+                  var jsonData = JSON.parse(confData._body);
+                  console.log(jsonData.consent.legalContent[linkParameters]);
+                  const _consentLink = jsonData.consent.legalContent[linkParameters];
+                  this.apiService.getResponse(_consentLink).subscribe(response => {
+                    console.log(response.uuid);
+                    console.log(response.currentVersion);
+                    console.log(response.serviceCode);
+                    console.log(response.serviceFunctionCode);
+                    _jsonObj.push({
+                                              'uuid':response.uuid,
+                                              'currentVersion':response.currentVersion,
+                                              'serviceCode':response.serviceCode,
+                                              'serviceFunctionCode':response.serviceFunctionCode
+                                            });
+                  });
+                  data['legalConsent'] = _jsonObj;
+                });
+              }
+              
+            }
+          }
+      
+      
       this.userSelectedConsent[index] = data;
       //this.LoggingService.printLog("push action");
     }
