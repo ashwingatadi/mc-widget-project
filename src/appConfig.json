@@ -1,8 +1,8 @@
 {
     "consent":{
         "inboundapi":{
-            "serviceCode":"pc",
-            "serviceFunctionCode":"pc-reg"
+            "serviceCode":"dp",
+            "serviceFunctionCode":"dp-reg"
         },
         "consentlanguage":{
             "userCategoryCode":{
