@@ -8,6 +8,7 @@ import { LoggingService } from '../services/logging.service';
 import { EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
+import { Consent } from './consent.model';
 
 
 
@@ -44,7 +45,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   private sfc: string;
   private userCategoryCode: string;
   consentElement: HTMLElement;
-
+  private appConfigData: Object = {};
   url: string;
   //public defaultLocale: string = 'en-US';
   customStyle: Object;
@@ -59,7 +60,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
   legalList: datatype[] = [];
   legalC: string = '';
   userSelectedConsent: any[][] = [[]];
-  createConsentQueryString: any[][];
+  //createConsentQueryString: any[][];
+  createConsentQueryString: Object = {};
   private isParentFormSubmitted: boolean = false;
   public loadDefaultTheme;
   public loadDefaultThemeConfigured;
@@ -138,6 +140,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       var jsonData = JSON.parse(confData._body);
       var serviceCode = jsonData.consent.inboundapi.serviceCode;
       var serviceFunctionCode = jsonData.consent.inboundapi.serviceFunctionCode;
+      this.appConfigData = jsonData;
       //this.loadDefaultTheme = jsonData.selectTheme.loadDefaultTheme;
 
       this.sc = serviceCode;
@@ -379,7 +382,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
     }
   }
   onSubmitClick(event) {
-    this.createConsentQueryString = [];
+    //this.createConsentQueryString = [];
     this.isParentFormSubmitted = true;
     //console.log(event);
     //console.log(this.frmName); //return false;
@@ -402,20 +405,64 @@ export class McConsentComponent implements OnInit, AfterViewInit {
         event.stopPropagation();
 
       } else {
+        var _createConsentQueryString = {};
+        _createConsentQueryString["consentData"] = [];
+        
         this.userSelectedConsent.forEach((item, index) => {
-          this.createConsentQueryString.push(item)
+          //console.log(item);
+          
+          _createConsentQueryString["consentData"].push(item);
           if(item["legalConsentMeta"]) {
             item["legalConsentMeta"].forEach((item, index) => {
-              this.createConsentQueryString.push(item)
+              item.isRequired = false;
+              item.linkData = "";
+              _createConsentQueryString["consentData"].push(item)
             })
           }
           
-        })
-        console.log(this.createConsentQueryString);
+         });
+         
+        const userIdForCreateConsent = <HTMLInputElement>document.getElementById(this.userIdForCreateConsent);
+        _createConsentQueryString["programId"] = this.appConfigData["programId"];
+        _createConsentQueryString["tenantId"] = this.appConfigData["tenantId"];
+        _createConsentQueryString["recordId"] = "0000";
+        _createConsentQueryString["userId"] = userIdForCreateConsent.value;
+        
+        //var dummyData.consentData = _createConsentQueryString;
+       
+// var dummyData: Consent = {
+//               "consentData": [
+//                 {
+//                   "consentType": "TBD",
+//                   "consentedDate": "2018-07-16T06:31:34.756Z",
+//                   "currentVersion": "string",
+//                   "isAgreed": true,
+//                   "isRequired": true,
+//                   "lastModifiedDate": "2018-07-16T06:31:34.756Z",
+//                   "locale": "en-US",
+//                   "serviceCode": "string",
+//                   "serviceFunctionCode": "dp-reg",
+//                   "serviceName": "dp",
+//                   "useCategoryCd": "tou",
+//                   "useCategoryCode": "string",
+//                   "uuid": "12345678"
+//                 }
+//               ],
+//               "programId": "dp",
+//               "recordId": "00000",
+//               "tenantId": "mc",
+//               "userId": "some@xyz.com"
+//             };
+            
+        this.apiService.createConsent(<Consent>_createConsentQueryString, this.appConfigData["consent"].createConsent)
+        .subscribe(createConsentResponse => {
+          console.log(createConsentResponse);
+        });
+        
         event.preventDefault();
         event.stopPropagation();
 
-        // const userIdForCreateConsent = <HTMLInputElement>document.getElementById(this.userIdForCreateConsent);
+        
         // this.LoggingService.printLog(userIdForCreateConsent.value);
         // this.userSelectedConsent.forEach((item, index) => {
         //   console.log(item);
@@ -472,10 +519,8 @@ export class McConsentComponent implements OnInit, AfterViewInit {
           if (linkParameters !== undefined) {
 
             //console.log(linkParameters + " linkParameter");
-            this.configService.getConfigData().subscribe(confData => {
-              const jsonData = JSON.parse(confData._body);
-              if (jsonData.consent.legalContent[linkParameters]) {
-                var _consentLink = jsonData.consent.legalContent[linkParameters];
+              if (this.appConfigData["consent"].legalContent[linkParameters]) {
+                var _consentLink = this.appConfigData["consent"].legalContent[linkParameters];
                 this.apiService.getResponse(_consentLink).subscribe(response => {
                   // console.log(response.uuid);
                   // console.log(response.currentVersion);
@@ -498,7 +543,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
                 
 
               }
-            });
+            
           }
         }
       }
@@ -506,7 +551,7 @@ export class McConsentComponent implements OnInit, AfterViewInit {
       //this.LoggingService.printLog("push action");
     }
 
-    console.log(this.userSelectedConsent);
+    //console.log(this.userSelectedConsent);
     //this.onSubmitClick(event);
   }
   parseToObject(str: string) {

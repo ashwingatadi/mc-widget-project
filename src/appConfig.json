@@ -1,4 +1,6 @@
 {
+    "programId":"dp",
+    "tenantId":"mc",
     "consent":{
         "inboundapi":{
             "serviceCode":"pc",
@@ -13,6 +15,7 @@
             "version":"1.0",
             "https://www.priceless.com/privacy": "http://localhost:8088/WidgetDemo/consent/1.0.0/legalcontent/pc/en-US/pc-reg/pn",
             "https://www.priceless.com/terms/en_us?languageId=1": "http://localhost:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn"
-        }
+        },
+        "createConsent":"http://localhost:9090/api/v1/consent"
     }
 }

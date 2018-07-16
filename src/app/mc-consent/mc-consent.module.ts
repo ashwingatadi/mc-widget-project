@@ -5,6 +5,8 @@ import {FormsModule} from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
 import { ModalService } from '../services/modal.service';
 import { LoggingService } from '../services/logging.service';
+import { ApiconnectService } from '../services/apiconnect.service';
+import { ConfigService } from '../services/config.service';
 import {SafePipe} from './safe-html.pipe';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule,TranslateLoader} from '@ngx-translate/core';
@@ -36,7 +38,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
       ModalService,
-      LoggingService
+      LoggingService,
+      ConfigService,
+      ApiconnectService
   ],
   exports: [
     McConsentComponent

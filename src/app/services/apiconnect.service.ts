@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Consent} from '../mc-consent/consent.model';
+import { catchError, retry } from 'rxjs/operators';
+import { ConfigService} from './config.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 
 @Injectable()
 export class ApiconnectService {
 
+  
   //apiUrl: string; 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configService: ConfigService) {
     //this.getResponse();
   }
 
@@ -27,4 +37,13 @@ export class ApiconnectService {
   //   //console.log(this.apiUrl);
      return this.http.get(url);
   }
+  
+    /** POST: create a new consent to the database */
+  createConsent (consent: Consent, url: string): Observable<Consent> {
+    return this.http.post<Consent>(url, consent, httpOptions)
+      .pipe(
+        catchError(this.configService.handleError)
+      );
+  }
+
 }
