@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7,46 +7,45 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
 </head>
 <body>
      <div class="row">
-      <div class="col-sm-6">
-        <mc-signup
-        useConsent="false"
-        callConsentAPIOnSubmit="true"
-        ></mc-signup>
+       <mc-signup locale="en-us" consent-required="true" signup-type="phone"  signup-header="Sign Up"
+                  widget-classxx="div.disclaimer,a.link,a.custom-1,a.hover-custom-2,a.underline,a.-plain,a.dn,a.dib-l"
+                  widget-stylexx="div.{color:blue}"></mc-signup>
+
+       <div class="col-sm-6">
+
       </div>
 	  <form name="sampleForm" id="sampleForm" method="post" action="#">
-	  <input type="text" name="username" id="username" required>
+	  
       <div class="col-sm-6">
+     
+       
 
-        <mc-consent
+    <!--<mc-signup consent-required="true" sign-up="" signup-donate="" signup-phone="true" signup-header="Sign Up"></mc-signup>-->
+
+<input type="text" name="username" id="username" required>
+       <mc-consent
+          buttonIdForAPICall="outsideBtnId"
           button-id="outsideBtnId"
           form-name="sampleForm"
           username-id="username"
           call-api="true"
           default-theme=""
-          widget-class=""
-		      widget-stylex="div.{color:blue}"
+          widget-classx="div.disclaimer,a.link,a.custom-1,a.hover-custom-2,a.underline,a.-plain,a.dn,a.dib-l"
+          widget-stylex="div.{color:black;background:white}"
           locale="en-us"></mc-consent>
 
 
-       <!-- <mc-consent
-          buttonIdForAPICall="outsideBtnId"
-          button-id="outsideBtnId"
-          form-name="sampleForm"
-          frmName="sampleForm"
-           callAPI = "true"
-          callAPI = "true"
-          widget-class=""
-          default-theme="false"
-          widget-style="div.{color:yellow},p.{background:red}"
-          locale="en-US"></mc-consent>-->
+     
 
 
            <button type="submit" id="outsideBtnId">Click Me</button>  <!-- widgetstylenoreference='{line-height: 1.8;color: #777;margin-bottom: 2rem}'-->
       </div>
 	 </form>
     </div>
+   
 </body>
 </html>

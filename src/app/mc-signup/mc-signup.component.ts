@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, AfterViewInit, ElementRef } from '@angular/core';
-import { ConfigService } from './../services/config.service';
+import { ConfigService } from '../services/config.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mc-signup',
@@ -15,21 +16,26 @@ export class McSignupComponent implements OnInit, AfterViewInit {
   // consentApiKey: string;
 
 
-  constructor(private configService: ConfigService, private elm: ElementRef) {
-    this.useConsent = elm.nativeElement.getAttribute('useConsent');
-    this.callConsentAPIOnSubmit = elm.nativeElement.getAttribute('callConsentAPIOnSubmit');
-    // this.buttonIdForConsentAPICall = elm.nativeElement.getAttribute('buttonIdForConsentAPICall');
-    // this.consentApiKey = elm.nativeElement.getAttribute('consentApiKey');
-    //console.log(this.buttonIdForConsentAPICall);
+  constructor(private configService: ConfigService, private elm: ElementRef, private router: Router) {
+    /*this.useConsent = elm.nativeElement.getAttribute('useConsent');
+    this.callConsentAPIOnSubmit = elm.nativeElement.getAttribute('callConsentAPIOnSubmit');*/
+
   }
 
   ngOnInit() {
-    //console.log(this.useConsent);
+  
     //this.readConfigData();
   }
 
   ngAfterViewInit() {
-    //console.log(this.useConsent);
+  }
+
+  Navigate(){
+    this.router.navigateByUrl('/customers', { skipLocationChange: true });
+  }
+
+  Navigate2(){
+    this.router.navigateByUrl('/dummy',{ skipLocationChange: true });
   }
 
   readConfigData() {
@@ -42,6 +48,4 @@ export class McSignupComponent implements OnInit, AfterViewInit {
         console.log(err.message);
       })
   }
-
-
 }

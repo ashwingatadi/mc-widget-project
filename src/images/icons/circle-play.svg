@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>circle-play</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="circle-play" transform="translate(1.000000, 1.000000)" fill="#141413" fill-rule="nonzero">
+            <path d="M39,79 C16.90861,79 -1,61.09139 -1,39 C-1,16.90861 16.90861,-1 39,-1 C61.09139,-1 79,16.90861 79,39 C79,61.09139 61.09139,79 39,79 Z M39,77 C59.9868205,77 77,59.9868205 77,39 C77,18.0131795 59.9868205,1 39,1 C18.0131795,1 1,18.0131795 1,39 C1,59.9868205 18.0131795,77 39,77 Z" id="circle"></path>
+            <path d="M55.2264076,39 L29,22.6084952 L29,55.3915048 L55.2264076,39 Z M27,19 L59,39 L27,59 L27,19 Z" id="Triangle"></path>
+        </g>
+    </g>
+</svg>

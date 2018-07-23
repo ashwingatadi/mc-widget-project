@@ -1,0 +1,31 @@
+{
+    "programId":"pc",
+    "tenantId":"mc",
+    "consent":{
+        "inboundapi":{
+            "serviceCode":"pc",
+            "serviceFunctionCode":"pc-reg"
+        },
+        "consentlanguage":{
+            "userCategoryCode":{
+                "mandatory": ["em", "tc", "tu"]
+            }
+        },
+        "legalContent":{
+            "version":"1.0",
+            "https://www.priceless.com/privacy": {
+                "isOverlay": true,
+                "sc":"pc",
+                "sfc":"pc-reg",
+                "useCategory":"pn"
+            },
+            "https://www.priceless.com/terms/en_us?languageId=1": {
+                "isOverlay":true,
+                "sc":"dp",
+                "sfc":"dp-reg",
+                "useCategory":"pn"
+            }
+        },
+		"createConsent":"http://10.44.21.6:9090/api/v1/consent"
+    }
+}

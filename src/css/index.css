@@ -1,0 +1,690 @@
+
+.form-block {
+
+  padding: 30px 0;
+
+}
+.form-details{
+    display: flex;
+    flex-wrap: wrap;
+}
+.form .label{
+	font-size: 12px;
+    	margin-bottom: 4px;
+}
+.mc-signup-form{
+    font-weight: 500;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+}
+.mc-signup-label{
+	font-size:12px;
+	display: inline;
+	margin-bottom:5px;
+}
+.mc-signup-info{
+	content:"#9432";
+}
+.primary-light input, .primary-light textarea {
+    color: #000 ;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+.primary-light input{
+	display: block;
+	width: 100%;
+	height: 40px;
+	padding: 8px 12px;
+	font-size: 16px;
+	line-height: 24px;
+	background-image: none;
+	background-clip: padding-box;
+	border-radius: 4px;
+  
+}
+.mc-email-error{
+    border-color: red;
+}
+.progress-bar {
+  background-color: whiteSmoke;
+  border-radius: 2px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+
+  width: 250px;
+  height: 20px;
+  
+  position: relative;
+  display: block;
+}
+  
+.progress-bar > span {
+  background-color: blue;
+  border-radius: 2px;
+
+  display: block;
+  text-indent: -9999px;
+}
+.form-details input[type='checkbox']{
+	width: 16px;
+    height: 16px;
+    padding: 0;
+    position: absolute;
+    top: 2px;
+    z-index: 1;
+}
+.mc-checkbox-wrapper{
+     max-height: 35%;
+    overflow-x: scroll;
+    margin-bottom: 20px;
+}
+a.small.mc-widget-t&c ,a.small.mc-already-signin{
+	padding-left: 36px;
+}
+.mc-signup-container{
+    margin-top: 20px;
+    display: inline-block;
+}
+.node{
+    padding-left: 20px;
+    cursor: pointer;
+}
+.form-details .checkbox.small{
+    font-size: 50px;
+    line-height: 24px;
+
+}
+
+.form-details .mc-checkbox{
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 27px;
+}
+.small {
+    font-size: 12px;
+    line-height: 15px;
+    position: absolute;
+    letter-spacing: 0.1px; 
+}
+.primary-light .btn-primary{
+	width:100%;
+    height: 40px;
+    line-height: 1px;
+}
+.mc-signup-links{
+	text-decoration: underline;
+	color:#ff7e00;
+	display: contents;
+}
+.mc-signup-bottom .mc-already-sign p{
+	font-size: 12px;
+	margin:5px;
+}
+.required{
+    position: relative;
+    top:5px;
+    margin-left: -9px;
+}
+.mc-error-text{
+    color: red;
+    margin-bottom: 20px;
+    display:none;
+}
+
+.fa-info-circle::before{
+	content: "\f05a";
+	font-family: FontAwesome;
+	padding: 5px;
+        font-size: 12px;
+}
+.fa-eye{
+    font-family: 'FontAwesome';
+        position: absolute;
+    right: 0px;
+    padding: 25px 15px;
+    pointer-events: none;
+   
+}
+.mc-widget-tooltip {
+    display: inline;
+    position: relative;
+}
+a.mc-widget-tooltip {
+  position: relative;
+  display: inline;
+}
+a:hover.mc-widget-tooltip span {
+  visibility: visible;
+  left: 100%;
+  margin-left: 15px;
+  z-index: 999;
+margin-top: -35px;
+}
+
+a.mc-widget-tooltip span {
+  position: absolute;
+  width:140px;
+  color: #000000;
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  height: 95px;
+  line-height: 95px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 1px;
+box-shadow: 0px 0px 10px #000;
+}
+a.mc-widget-tooltip span:before {
+    content: '';
+    position: absolute;
+    top: 82%;
+    right: 100%;
+    margin-top: -12px;
+    width: 0;
+    height: 0;
+    border-right: 12px solid #000000;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+}
+a.mc-widget-tooltip span:after {
+    content: '';
+    position: absolute;
+    top: 82%;
+    right: 100%;
+    margin-top: -9px;
+    width: 0;
+    height: 0;
+    border-right: 10px solid #FFFFFF;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+}
+.mc-phone-signup{
+	display:flex;
+
+}
+.mc-consent-block{
+    padding-bottom: 35px;
+    padding-top: 30px;
+}
+.mc-deactivated-text{
+    color: #d22a2f;
+    display: none;
+}
+.mc-widget-confirm-code{
+	/* margin: 0 auto;*/
+	padding-bottom:15px;
+}
+.mc-forgot-password{
+    text-align: right;
+}
+.mc-forgot-password .mc-signup-links, .mc-update-password .mc-signup-links{
+    text-decoration: none;
+}
+.mc-update-password{
+    margin-top: -15px;
+}
+.mc-login-remember{
+	padding-left:10px;
+	position: absolute;
+}
+.mc-login-remember.small{
+	padding-top:25px;
+}
+.mc-form-sumbit .btn-primary:disabled{
+	background-color: #fff;
+    color: #d0d0d0;
+    border: 1px solid #d0d0d0;
+    overflow: hidden;
+}
+.mc-radio input{
+	    width: 16px;
+    height: 16px;
+    padding: 0;
+    top: 2px;
+    z-index: 1;
+}
+.mc-custom-radio .mc-radio{
+    padding-left: 20px;
+    position: relative;
+    display: block;
+}
+.mc-custom-radio .mc-radio input[type="radio"]{
+	    opacity: 0;
+    z-index: 1;
+    width: 13px !important;
+    height: 13px;
+    position: absolute;
+}
+.mc-custom-radio .mc-radio label::before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top:7px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.mc-custom-radio .mc-radio label::after{
+    display: inline-block;
+    position: absolute;
+    content: " ";
+    width: 5px;
+    height: 5px;
+    left: 5px;
+    top: 12px;
+    border-radius: 50%;
+    -webkit-transform: scale(0, 0);
+    transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+    background-color: #ff7e00;
+}
+.mc-custom-radio .mc-radio input[type="radio"]:checked ~ label::after{
+	    transform: scale(1, 1);
+}
+.mc-form-sumbit{
+	margin-top: 15px;
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+  z-index: 999;
+}
+
+.popup {
+     margin: 6% auto;
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+    width: 90%;
+    position: relative;
+    border: 1px solid #000;
+    text-align:left;
+}
+.popup .close {
+      position: absolute;
+    top: -11px;
+   right:5px;
+
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+.mc-popup-content {
+    margin-left: 15px;
+    font-weight: 500;
+}
+.mc-checkbox input {
+	position: absolute;
+	z-index: -1;    
+	opacity: 0;
+    
+}
+.mc-widget-confirm-code input{
+    background-color: #F6F3EF;
+}
+.mc-widget-confirm-code input:focus{
+    background-color: #fff;
+}
+.mc-control-indicator {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background: #fff;
+    border: 1px solid #000000;
+    border-radius: 2px;
+}
+.mc-checkbox:hover input ~ .mc-control-indicator,
+.mc-checkbox input:focus ~ .mc-control-indicator {
+    
+	background: #fff;
+
+}
+
+.checkbox input:checked ~ .control_indicator {
+    
+	background: #fff;
+
+}
+.mc-checkbox:hover input:not([disabled]):checked ~ .mc-control-indicator,
+.mc-checkbox input:checked:focus ~ .mc-control-indicator{
+
+	background: #fff;
+
+}
+.mc-checkbox input:disabled ~ .mc-control-indicator {
+    
+	background: #e6e6e6;
+    
+	opacity: 0.6;
+    
+	pointer-events: none;
+
+}
+.mc-control-indicator:after {
+    
+	box-sizing: unset;
+    
+	content: '';
+    
+	position: absolute;
+    
+	display: none;
+
+}
+.mc-checkbox input:checked ~ .mc-control-indicator:after {
+    
+	display: block;
+
+}
+.mc-checkbox .mc-control-indicator:after {
+   
+    left: 4px;
+    top: 1px;
+    width: 3px;
+    height: 8px;
+    border: solid #5AC9AE;
+    border-width: 0px 2px 2px 0px;
+    transform: rotate(45deg);
+}
+.mc-reconsent h4{
+	color:#5AC9AE;
+	font-weight: 400;
+	padding-left: 55px;
+}
+.mc-check-icon {
+  font-size: 23px;
+}
+.mc-check-icon:before {
+  content: " ";
+  display: block;
+  border: solid 0.8em #5AC9AE;
+  border-radius: 0.8em;
+  height: 0;
+  width: 0;
+  position: absolute;
+  left: 0.5em;
+  top: 30%;
+  margin-top: -0.5em;
+}
+.mc-check-icon:after {
+      content: " ";
+    display: block;
+    width: 10px;
+    height: 19px;
+    border: solid #fff;
+    border-width: 0 0.2em 0.2em 0;
+    position: absolute;
+    left: 25px;
+    top: 15px;
+	nsform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.mc-reconsent-p{
+
+    margin-left: 57px;
+    margin-top: -30px;
+}
+.signup-phone-form .mc-signup-bottom div{
+    width: 200px;
+    margin-left: 70px;
+    text-align: center;
+}
+.signup-phone-form .mc-widget-confirm-code{
+    margin-left: 40px;
+    padding: 0px;
+}
+.overlay .mc-widget-confirm-code{
+    margin-left: 40px;
+    padding: 0px 0px 10px 0px;
+}
+.verification-signup-form .lead{
+    margin-top: 0px;
+}
+.verification-signup-form .small{
+    margin-left: 10px;
+}
+.reconsent-form .lead{
+    margin-top: 0px;
+}
+.mc-data-consent span{
+    position: inherit;
+}
+.mc-data-consent{
+    margin-bottom: 20px;
+}
+.mc-reconsent-form{
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+.mc-deactivated-account{
+    color: #d22a2f;
+}
+.demo{
+    position: fixed;
+    bottom: 0px;
+    left: 8px;
+    width: 95%;
+    background-color: #fff;
+}
+.chkbx-wrap .lead {
+    margin-bottom: 0px;
+    margin-top: 16px;
+    font-size: 12px;
+  }
+  .chkbx-wrap .lead:focus {
+    outline: 0;
+  }
+  .lead{
+  margin-bottom: 0px;
+  font-size: 16px;
+}
+form .lead {
+    font-size: 12px;
+    line-height: 24px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+  .form-details .chkbx {
+    position: relative;
+    margin-top: 8px;
+  }
+  .form-details .chkbx:first-child {
+    margin-top: 16px;
+  }
+  .form-details input[type='checkbox'] + label{
+    padding-left: 30px;
+    position: relative;
+    cursor: pointer;
+  }  
+  .form-details input[type='checkbox'] + label::before{
+    transition: border .2s ease-in-out;
+    background-color: #fdfcfc;
+    border: 1px solid #141413;
+    content: "";
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    left: 0;
+    position: absolute;
+    top: 7px;
+    vertical-align: top;
+    border-radius: 3px;
+  
+  }
+  .chkbx input:checked+label:before{
+      
+    background-image: url(https://developers.mastercard.com/img/icon-checkmark.svg);
+    background-position: 50%;
+    background-size: 66%;
+    background-repeat: no-repeat;
+}
+  .form-details input[type='checkbox'] + label .small{
+     font-size: 12px;
+     line-height: 24px;
+     position: relative;
+  }
+  .form-details input[type='checkbox']{
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    position: absolute;
+    top: 7px;
+    opacity: 0;
+    z-index: 1;
+  }
+  .chkbx input{
+      position: absolute;
+  }
+  .verification-signup-form .lead{
+      margin-top: 0px;
+  }
+  @media (min-width: 576px){
+.primary-light .btn-primary {
+    width: auto;
+    min-width: 180px;
+}
+.mc-already-sign{
+    width: auto;
+    min-width: 180px;
+}
+}
+@media (min-width: 992px)and (orientation: landscape)  {
+
+}
+@media (min-width: 760px) {
+.reconsent-form .mc-reconsent-form{
+    text-align: left;
+    left: 0;
+}
+}
+.mc-phone-signup-error{
+    color: #d22a2f;
+    display: none;
+    border-color: #d22a2f !important;
+}
+.mc-breadcrumb{
+    padding: 7px 25px;
+    margin-bottom: 0px;
+}
+ul.mc-breadcrumb li {
+    display: inline;
+    font-size: 12px;
+    color:grey;
+}
+ul.mc-breadcrumb li+li:before {
+    color: black;
+    content: "/\00a0";
+}
+ul.mc-breadcrumb li a {
+    color: #141413;
+    text-decoration: none;
+}
+ul.mc-breadcrumb li a:hover {
+    text-decoration: underline;
+}
+.mc-welcome-userName{
+    margin-bottom: 15px;
+}
+.mc-profile-head, .mc-welcome-text{
+    margin-bottom: 15px;
+}
+.mc-welcome-area{
+    font-size: 12px;
+}
+.profile-option-selection{
+    display: inline-block;
+    background-color: #141413;
+    color: #fdfcfc!important;
+    width: 30%;
+    height: 115px;
+    max-width: 31%;
+    margin: 3px;
+    border-radius: 7px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 16px;
+    line-height: 15px;
+
+}
+.profile-details{
+    display: inline;
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 10px;
+}
+.xyz{
+    position: absolute;
+    bottom: 0;   
+    margin-bottom: 5px;
+    left: 0;
+}
+.profile-option-selection svg{
+    width: 60px;
+    height: 60px;
+    fill: #fdfcfc;
+    padding-top: 10px;
+}
+a, input:focus{
+    outline-color: #141413;
+   
+}
+.mc-ph-add , .mc-email-add{
+    right: 10px;
+    position: absolute;
+    font-size: 12px;
+    color: #ff7e00;
+}
+.mc-personal-details-form, .mc-profile-form, .mc-prefrences-form{
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+.mc-profile .lead{
+    margin-top: 0px;
+}
+.mc-prefrences-email{
+    margin-bottom: 0px;
+}
+.prefrence-details .chkbx{
+    margin-top: 0px!important;
+}
+.box, .mc-cards{
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;  
+    display: flex;
+}
+.mc-add-card{
+    position: absolute;
+    right: 0;
+}
+.mc-cards{
+    padding: 10px 0 10 0;
+}
+iframe{
+    stroke-opacity: 0;
+    fill: blue;
+    height:45px;
+    width: 45px;
+}

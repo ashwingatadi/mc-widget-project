@@ -1,44 +1,40 @@
-<form   #f='ngForm'  [attr.default-theme]="loadDefaultTheme" [style.width]="width" [style.height]="height" locale="locale">
-  <div  (focusout)="focusOutFunction($event)"  id="WidgetComponent" [ngStyle]="widgetstylenew">
+<form #f='ngForm' [attr.default-theme]="loadDefaultTheme" [style.width]="width" [style.height]="height" locale="locale">
+  <div (focusout)="focusOutFunction($event)" style="padding:5px" id="WidgetComponent" [ngStyle]="widgetstylenew">
 
     <span [ngClass]="{'errorConcentBlock': consentErr}" identifier="errorConcentAlign" id="errorConcent" i18n>
       Please select all consents
     </span>
-    <div>
+    <div style="overflow-y: auto;max-height: 10em">
       <div *ngFor="let consent of consentList; let i = index">
         <div class="checkbox mc-consent-block">
-          <label>
-            <input style="margin-left:3px;margin-right:3px" class="mc-checkbox"
+          <label style="float: left;">
+            <input   identifier="consentcheckbox" style="margin-right:3px;" class="mc-checkbox"
                    *ngIf="consentList?.length != i+1 || consentList?.length == 1" id="consent{{i+1}}" name="consent{{i+1}}" type="checkbox"
                    (ngModelChange)="onFilterChange($event, consent, i)" required="{{consent.isRequired}}" ngModel #con/>
-            <span identifier="astrict" style="margin-right:3px" *ngIf="consent.isRequired && consentList?.length != i+1">*</span>
-			      <div *ngIf="consentList?.length != i+1 || consentList?.length == 1" class="mc-control-indicator" [ngClass]=" { 'mc-error-msg': callValid(i+1) }"></div>
-				</label>
-            <div identifier="consentBlock" *ngIf="consent.linkData" [innerHTML]="consent.linkData | safe: 'html'"
-                 (bindEvent)="onBindEvent($event);"></div>
-            <!-- <div>{{consent | safeHtml}}</div> -->
-            <!-- <p>I agree to the <a title="Developer Program Agreement" target="_blank" (click)="_getLeagalContent('http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/dp-reg/pn')" xyz="abc">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described in the&nbsp;<a title="Privacy Policy" href="http://10.44.32.49:8088/WidgetDemo/consent/1.0.0/legalcontent/dp/en-US/cp-reg/pn " target="_blank">Mastercard Privacy Policy</a><br> </p> -->
-            <!-- <div>
-              <p>I agree to the
-                <a title="Developer Program Agreement" (click)="_getLeagalContent()" href="javascript:void(0);">Developer Program Agreement</a> and understand that my personal data will be processed by Mastercard as described
-                in the&nbsp;
-                <a title="Privacy Policy" href="https://stage.services.mastercard.com/dm/content/consentmanagement/legalcontent/dp/en-us/dp-reg/pn">Mastercard Privacy Policy</a>
-                <br>
-              </p>
-            </div> -->
-         
-        </div>
+			      <div  *ngIf="consentList?.length != i+1 || consentList?.length == 1" class="mc-control-indicator" [ngClass]="{'mc-error-msg': callValid(i+1)}"></div>
+          </label>
+          <span identifier="astrict" style="margin-right:3px;float: left" *ngIf="consent.isRequired && consentList?.length != i+1">*</span>
+
+          <div [ngClass]="{'patchConsentText': consentList?.length != i+1 || consentList?.length == 1}" identifier="consentBlock" *ngIf="consent.linkData"
+            [innerHTML]="consent.linkData | safe: 'html'" (bindEvent)="onBindEvent($event);"></div>
       </div>
     </div>
-    <!-- <button (click)="openModal('custom-modal-1')">Open Modal 1</button>
-    <button (click)="_getLeagalContent()">Open Modal 2</button> -->
-    <jw-modal id="custom-modal-1">
-      <div *ngFor="let legal of legalList; let i = index">
-        <a class="close" (click)="closeModal('custom-modal-1');">X</a>
-        <div [innerHTML]="legal | safe: 'html'">
-        </div>
-      </div>
+  </div>
 
-    </jw-modal>
+  <jw-modal id="custom-modal-1">
+    <!--<div *ngFor="let legal of legalList; let i = index">
+      <a class="close" (click)="closeModal('custom-modal-1');">X</a>
+      <div [innerHTML]="legal | safe: 'html'">
+      </div>
+    </div>-->
+		<div class="mc-modal-iframe">
+        <iframe id="ifrOverlay" src="javascript:void(0)" height="400" width="700" scrolling="auto" align="middle">&nbsp;</iframe>
+    </div>
+
+  </jw-modal>
+  <jw-modal id="custom-modal-2">
+    <div [innerHTML]="stingAlert | safe: 'html'"> </div>
+
+  </jw-modal>
   </div>
 </form>

@@ -1,5 +1,5 @@
 export class LoggingService {
-    printLog(msg: string){
+    printLog(msg: any){
         console.log(msg);
     }
 }

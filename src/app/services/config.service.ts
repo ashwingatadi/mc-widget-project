@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 
 
@@ -11,7 +11,7 @@ export class ConfigService {
 
   getConfigData(): Observable<any>
   {
-    return this.http.get('appConfig.json');
+    return this.http.get('widgetConfig.json');
   }
   handleError(error: HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {

@@ -1,0 +1,119 @@
+
+<div class="container-fluid">
+
+<!--
+  <form>
+    <h1>Sign Up</h1>
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+
+    <div class="form-group">
+      <label for="email">
+        <b> Email</b>
+      </label>
+      <input type="text" class="form-control" placeholder="Enter Email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="psw">
+        <b>Password</b>
+      </label>
+      <input type="password" class="form-control" placeholder="Enter Password" name="psw" required>
+    </div>
+
+    <div class="form-group">
+      <label for="psw-repeat">
+        <b>Confirm Password</b>
+      </label>
+      <input type="password" class="form-control" placeholder="Confirm Password" name="psw-repeat" required>
+    </div>
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+    </div>
+
+   &lt;!&ndash; <div *ngIf="[useConsent] == 'true'">
+      <mc-consent
+        callAPI="{{callConsentAPIOnSubmit}}">
+      </mc-consent>
+    </div>&ndash;&gt;
+
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+
+
+  </form>
+-->
+  <html lang="en" style="overflow-x: hidden; width: 100%; position: relative; height: 100vh;">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SignUp Page</title>
+   <!-- <link rel="stylesheet" href="./css/gesso.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">-->
+  </head>
+  <body style="overflow-x: hidden; width: 100%; position: relative; height: 100vh;">
+  <div class="container" [ngStyle]="widgetstylenew">
+
+    <div class="form-block primary-light">
+      <form class="signup-form" autocomplete="off">
+        <div class="row">
+          <div class="col-push-md-2 col-push-sm-0 col-md-8 col-12 ">
+            <h6 class="col-push-sm-0 col-md-8 col-12 mc-signup-form" aria-label="Title">{{signupheader}}</h6>
+          </div>
+          <div class="col-push-md-2 col-push-sm-0 col-md-8 col-12 form-details">
+
+            <div  *ngIf="signUpType === 'default'">
+            <mc-signup-default></mc-signup-default>
+            </div>
+            <div  *ngIf="signUpType === 'donate'">
+            <mc-signup-donate></mc-signup-donate>
+            </div>
+            <div  *ngIf="signUpType === 'phone'">
+            <mc-signup-phone></mc-signup-phone>
+            </div>
+            <div class="col-12">
+              <div class="chkbx-wrap">
+                <p class="lead" aria-label="Checkbox">Scroll Down to see and aggree consents</p>
+
+                <div class="mc-checkbox-wrapper" *ngIf="consentRequired === 'true'">
+
+                  <mc-consent
+                    buttonIdForAPICall="outsideBtnId"
+                    button-id="outsideBtnId"
+                    form-name="sampleForm"
+                    username-id="username"
+                    call-api="true"
+                    default-theme=""
+                    widget-classx="div.disclaimer,a.link,a.custom-1,a.hover-custom-2,a.underline,a.-plain,a.dn,a.dib-l"
+                    widget-style="div#consentBlock.{display:inline-block;padding-left:30px},input#consentcheckbox.{width:15px;display:inline},a.{display: inline;font-size:.875rem;},div#modalstyle.{color:black;background:white}"
+                    widget-stylex="{color:pink;background: black}"
+                    locale="en-us"></mc-consent>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="demo col-12">
+              <div class="col-12" rol="button" aria-label="go">
+                <button class="btn btn-primary" aria-label="Submit button">Sign Up</button>
+              </div>
+              <div class="mc-signup-bottom text-center">
+                <div class="col-12 mc-already-sign">
+                  <p aria-label="true">Already have an account ? &nbsp <a class="small mc-signup-links" href="./masterCard_Login.html">Log in</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div  (click)="NavigateToLogin()">Log In Default</div>
+      </form>
+    </div>
+  </div>
+  </body>
+
+
+

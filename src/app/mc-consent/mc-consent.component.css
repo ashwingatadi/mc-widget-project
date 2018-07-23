@@ -2,24 +2,6 @@
   color:red;
 }
 
-
-jw-modal .jw-modal .jw-modal-body {
-  border: 1px solid black;
-  max-height:80%;
-  overflow-y:scroll;
-}
-
-div.jw-modal{
-  margin: 0 auto !important;
-  width: 60%;
-}
-
-mc-consent form[default-theme="true"] {
-  overflow-y: auto;
-  max-height: 30%;
-}
-
-
 mc-consent form[default-theme="true"] div#WidgetComponent {
   /* style rules here */
   margin: 0;
@@ -33,24 +15,27 @@ mc-consent form[default-theme="true"] div#WidgetComponent {
   text-align: initial;
 }
 
-mc-consent form[default-theme="true"] .jw-modal-body{
-background: #fff !important;
+mc-consent form[default-theme="true"] div#WidgetComponent p{
+  font-size: 12px !important;
 }
 
-mc-consent form[default-theme="true"] div[identifier="consentBlock"]{
-  display: inline;
+.patchConsentText{
+  width: 90%;
+  max-width: 90%;
+  padding-left: 25px;
 }
 
 mc-consent form[default-theme="true"] span[identifier="astrict"]{
   color:black;
 }
-
+mc-consent form[default-theme="true"] .mc-consent-block{
+  margin-bottom: 5px !important;
+}
 div[identifier="consentBlock"] p{
   display: inline;
 }
 
 mc-consent form[default-theme="true"] .mc-checkbox{
-  position: relative;
   top: 2px;
   left: 0;
   height: 15px;
@@ -62,20 +47,20 @@ mc-consent form[default-theme="true"] .mc-checkbox{
 
 mc-consent form[default-theme="true"] a{
   text-decoration: underline;
-  color: #FD6F3A;
+  color: #FD6F3A !important;
   display: contents
 }
-.checkbox input{
-      position: absolute;
-    z-index: -1;
-    opacity: 0;
+
+mc-consent form[default-theme="true"] p{
+  line-height: 15px !important;
 }
+
 .mc-control-indicator {
-    position: absolute;
     top: 2px;
     left: 0;
-    height: 15px;
-    width: 15px;
+    margin-right: 5px;
+    height: 12px;
+    width: 12px;
     background: #fff;
     border: 1px solid #000000;
     border-radius: 2px;
@@ -83,25 +68,32 @@ mc-consent form[default-theme="true"] a{
 .checkbox input:checked ~ .mc-control-indicator:after {
     display: block;
 }
+input[identifier="consentcheckbox"]{
+  opacity: 0;
+}
+
 .checkbox .mc-control-indicator:after {
-    left: 4px;
-    top: 1px;
-    width: 3px;
-    height: 8px;
-    border: solid #5AC9AE;
-    border-width: 0px 2px 2px 0px;
-    transform: rotate(45deg);
+  left: 3px;
+  top: 1px;
+  width: 2px;
+  height: 6px;
+  border: solid #5AC9AE;
+  border-width: 0px 2px 2px 0px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 .mc-control-indicator:after {
     box-sizing: unset;
     content: '';
-    position: absolute;
+    position: relative;
     display: none;
 }
 .mc-error-msg{
-
-border:1px solid#da5559 ;
-
-display: block;
-
+border:1px solid #da5559 ;
+}
+.display-block{
+  display: block !important;
+}
+.display-none{
+  display: none !important;
 }

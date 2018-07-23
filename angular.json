@@ -21,11 +21,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/appConfig.json"
+              "src/widgetConfig.json"
             ],
             "styles": [
               "src/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/css/gesso.css"
             ],
             "scripts": []
           },

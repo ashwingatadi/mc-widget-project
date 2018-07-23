@@ -1,0 +1,271 @@
+<!--<p>
+  mc-login works!
+</p>
+<h1>WELCOME TO LOGIN SCREEN </h1>-->
+<html lang="en" style="overflow-x: hidden; width: 100%; position: relative; height: 100vh;">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login Page</title>
+<!--  <link rel="stylesheet" href="./css/gesso.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">-->
+</head>
+
+<body style="overflow-x: hidden; width: 100%; position: relative; height: 100vh;">
+<div class="container">
+  <div class="form-block primary-light">
+    <form class="signup-form" autocomplete="off">
+      <div class="row">
+        <div class="col-push-md-2 col-push-sm-0 col-md-8 col-12">
+          <h6 class="col-push-md-2 col-push-sm-0 col-md-8 col-12 mc-signup-form" aria-label="Title">Log In</h6>
+        </div>
+        <div class="col-push-md-2 col-push-sm-0 col-md-8 col-12 form-details">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mc-signup-container">
+            <label class="mc-signup-label" for="email" aria-label="Email">Email</label>
+            <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+              <span>Email Must Have</span>
+            </a>
+            <span class="mc-signup-info"></span>
+            <input class="form-inputs" type="email" name="email" aria-label="Insert Email" aria-required="true" placeholder="Example@mail.com">
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mc-signup-container">
+            <label class="mc-signup-label" for="email" aria-label="Email">Password</label>
+            <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+              <span>Email Must Have</span>
+            </a>
+            <span class="mc-signup-info">
+							</span>
+            <a class="far fa-eye"></a>
+            <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+            <div class="mc-forgot-password">
+              <a class="small mc-signup-links" href="#popup1">Forgot Password?</a>
+            </div>
+            <div class="mc-update-password">
+              <a class="small mc-signup-links" href="#popup2">Update Password?</a>
+            </div>
+            <div id="popup1" class="overlay">
+              <div class="popup">
+                <h6 class="mc-popup-content" aria-label="Title">Forgot Password</h6>
+                <div class="col-push-md-2 col-push-sm-0 col-md-8 col-12 form-details">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">Register Email</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <input class="form-inputs" type="email" name="email" aria-label="Insert Email" aria-required="true" placeholder="Example@mail.com"
+                    />
+                  </div>
+                  <div class="text-center mc-form-sumbit col-12">
+                    <div class="col-5 d-inline-block" rol="button" aria-label="go">
+                      <button class="btn btn-primary" disabled="" aria-label="Submit button">Send</button>
+                    </div>
+                    <div class="col-5 d-inline-block" rol="button" aria-label="go">
+                      <button class="btn btn-primary" aria-label="Submit button">Resend</button>
+                    </div>
+                  </div>
+
+                  <div class="mc-signup-bottom text-center">
+                    <div class="col-12 mc-already-sign">
+                      <p aria-label="true">Send verification code to verify
+                        <br>&amp; Sign up</p>
+                    </div>
+                  </div>
+                  <div class="mc-widget-confirm-code col-9">
+                    <input class="text-center" type="text" name="code" aria-label="Insert contact" aria-required="true" placeholder="CODE">
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">New Password</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <a class="far fa-eye"></a>
+                    <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">Confirm Password</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <a class="far fa-eye"></a>
+                    <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+                  </div>
+                  <div class="col-8" rol="button" aria-label="go">
+                    <button class="btn btn-primary" aria-label="Submit button">Change Password</button>
+                  </div>
+                </div>
+
+                <a class="close" href="#">&times;</a>
+              </div>
+            </div>
+            <div id="popup2" class="overlay">
+              <div class="popup">
+                <h6 class="mc-popup-content" aria-label="Title">Update Password</h6>
+                <div class="col-push-md-2 col-push-sm-0 col-md-8 col-12 form-details">
+
+                  <div class="text-center mc-form-sumbit col-12">
+                    <div class="col-5 d-inline-block" rol="button" aria-label="go">
+                      <button class="btn btn-primary" disabled="" aria-label="Submit button">Send</button>
+                    </div>
+                    <div class="col-5 d-inline-block" rol="button" aria-label="go">
+                      <button class="btn btn-primary" aria-label="Submit button">Resend</button>
+                    </div>
+                  </div>
+
+                  <div class="mc-signup-bottom text-center">
+                    <div class="col-12 mc-already-sign">
+                      <p aria-label="true">Send verification code to verify
+                        <br>&amp; Sign up</p>
+                    </div>
+                  </div>
+                  <div class="mc-widget-confirm-code col-9">
+                    <input class="text-center" type="text" name="code" aria-label="Insert contact" aria-required="true" placeholder="CODE">
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">Current Password</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Your current password</span>
+                    </a>
+                    <span class="mc-signup-info">
+												</span>
+                    <a class="far fa-eye"></a>
+                    <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">New Password</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <a class="far fa-eye"></a>
+                    <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">Confirm Password</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <a class="far fa-eye"></a>
+                    <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+                  </div>
+                  <div class="col-8" rol="button" aria-label="go">
+                    <button class="btn btn-primary" aria-label="Submit button">Update Password</button>
+                  </div>
+                </div>
+                <a class="close" href="#">&times;</a>
+              </div>
+            </div>
+            <div id="popup3" class="overlay">
+              <div class="popup">
+                <h6 class="mc-popup-content" aria-label="Title">Forgot Password</h6>
+                <div class="col-push-md-2 col-push-sm-0 col-md-8 col-12 form-details">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">Register Email</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <input class="form-inputs" type="email" name="email" aria-label="Insert Email" aria-required="true" placeholder="Example@mail.com"
+                    />
+                  </div>
+                  <div class="text-center mc-form-sumbit col-12">
+                    <div class="col-5 d-inline-block" rol="button" aria-label="go">
+                      <button class="btn btn-primary" disabled="" aria-label="Submit button">Send</button>
+                    </div>
+                    <div class="col-5 d-inline-block" rol="button" aria-label="go">
+                      <button class="btn btn-primary" aria-label="Submit button">Resend</button>
+                    </div>
+                  </div>
+
+                  <div class="mc-signup-bottom text-center">
+                    <div class="col-12 mc-already-sign">
+                      <p aria-label="true">Send verification code to verify
+                        <br>&amp; Sign up</p>
+                    </div>
+                  </div>
+                  <div class="mc-widget-confirm-code col-9">
+                    <input class="text-center" type="text" name="code" aria-label="Insert contact" aria-required="true" placeholder="CODE">
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">New Password</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <a class="far fa-eye"></a>
+                    <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label class="mc-signup-label" for="email" aria-label="Email">Confirm Password</label>
+                    <a class="fas fa-info-circle mc-widget-tooltip" title="Sample Text" aria-hidden="true">
+                      <span>Email Must Have</span>
+                    </a>
+                    <span class="mc-signup-info">
+											</span>
+                    <a class="far fa-eye"></a>
+                    <input class="form-inputs" type="password" name="password" aria-label="Insert Password" aria-required="true">
+                  </div>
+                  <div class="col-8" rol="button" aria-label="go">
+                    <button class="btn btn-primary" aria-label="Submit button">Change Password</button>
+                  </div>
+                </div>
+
+                <a class="close" href="#">&times;</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mc-consent-block">
+            <div class="checkbox-wrap">
+              <div class="mc-checkbox">
+                <input type="checkbox" aria-label="true" class="mc-checkbox" id="mc-checkbox-login">
+                <div class="mc-control-indicator"></div>
+                <label class="node mc-checkbox-label" for="mc-checkbox-login">
+                  <span class="mc-login-remember">Remember Me</span>
+                  <span class="mc-login-remember small">Remember log in details on the device</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mc-deactivated-account col-12 small">
+            <span class="mc-deactivate-error">Your Account is deactivated. &nbsp<a class="small mc-signup-links" href="#popup3">Activate</a></span>
+          </div>
+          <div class="mc-deactivated-text col-12 ">
+            <div class="mc-deactivate-error">Account Locked</div>
+            <small class="deactivated-text">You have reached your maximum Log In attempts please try<br>loggin in after 2 Hrs</small>
+          </div>
+          <div class="demo col-12">
+            <div class="col-12" rol="button" aria-label="go">
+              <button class="btn btn-primary" aria-label="Submit button">Login</button>
+            </div>
+            <div class="mc-signup-bottom text-center">
+              <div class="col-12 mc-already-sign">
+                <p aria-label="true">Don't have an account ? &nbsp
+                  <a class="small mc-signup-links" href="./phone_signup.html">Sign Up</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+
+</html>
